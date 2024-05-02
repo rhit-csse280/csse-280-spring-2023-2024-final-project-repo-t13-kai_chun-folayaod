@@ -1,0 +1,74 @@
+@ -1,48 +0,0 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons"
+    />
+    <link rel="stylesheet" href="styles/bootstrap-material-design.min.css" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <title>Wilson Tennis Shop</title>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-dark fixed-top">
+      <a class="navbar-brand" href="#">Ws Sports</a>
+    </nav>
+    <div id="mainPage" class="container page-container">
+      <div class="Ws_Sports_Logo">
+        <img src="./Photos/Ws-sport-logo.png" alt="Facebook" />
+      </div>
+
+      <!-- Login -->
+      <div class="form-group">
+        <label for="inputEmail" class="bmd-label-floating">
+          Email address
+        </label>
+        <input type="email" class="form-control" id="inputEmail" />
+      </div>
+      <div class="form-group">
+        <label for="inputPassword" class="bmd-label-floating"> Password </label>
+        <input type="password" class="form-control" id="inputPassword" />
+      </div>
+      <!-- Footer -->
+      <div id="footer">
+        <footer>
+          <div class="footer-content">
+            <p>Contact: protenistsw@gmail.com</p>
+            <p>+886 7 381 2128</p>
+            <p>高雄市三民區鼎山街195號, Kaohsiung, Taiwan</p>
+            <div class="social-media">
+              <a href="https://facebook.com" class="facebook-button"
+                ><img src="./Photos/FB-Icon.png" alt="Facebook"
+              /></a>
+              <a
+                href="https://www.instagram.com/ws.sport.tw?igsh=MTk3YjZpOWhqenVwaQ=="
+                class="facebook-button"
+                ><img src="./Photos/Ig-icon.png" alt="Facebook"
+              /></a>
+            </div>
+          </div>
+        </footer>
+      </div>
+      <div id="firebaseui-auth-container"></div>
+    </div>
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/popper.js"></script>
+    <script src="scripts/bootstrap-material-design.js"></script>
+    <script>
+      $("body").bootstrapMaterialDesign();
+    </script>
+    <script src="/__/firebase/7.18.0/firebase-app.js"></script>
+    <script src="/__/firebase/7.18.0/firebase-analytics.js"></script>
+    <script src="/__/firebase/7.18.0/firebase-auth.js"></script>
+    <script src="/__/firebase/7.18.0/firebase-firestore.js"></script>
+    <script src="/__/firebase/init.js"></script>
+    <script src="scripts/main.js"></script>
+  </body>
+</html>
