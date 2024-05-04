@@ -52,9 +52,6 @@ footer {
     color: white;
     padding: 0 10px;
 }
-.social-media{
-    margin-left: 725px;
-} 
 
 #columns {
   column-count: 3;
@@ -128,23 +125,38 @@ footer {
   margin-bottom: 1em;
 }
 
-.bmd-layout-content {
-  height: 100vh;
+.firebaseui-idp-button {
+  width: 100%;  /* Makes all buttons full width of their container */
+  height: 50px; /* Fixed height for all buttons */
+  margin: 10px 0; /* Adds vertical spacing between buttons */
+}
+.firebaseui-idp-button .firebaseui-idp-text {
+  text-align: center;
+  width: 100%;
+}
+.firebaseui-idp-button {
+  font-family: 'Roboto', sans-serif; /* Example: Roboto font */
+  font-size: 16px; /* Suitable font size */
+  color: #fff; /* Text color */
+}
+.firebaseui-id-idp-google {
+  background-color: #4285F4; /* Google color */
+}
+.firebaseui-id-idp-email {
+  background-color: #DB4437; /* Example: Red for email */
+}
+.firebaseui-id-idp-phone {
+  background-color: #0F9D58; /* Example: Green for phone */
+}
+.firebaseui-id-idp-anonymous {
+  background-color: #F4B400; /* Example: Yellow for guest */
+}
+/* Example assuming the icon is an SVG inside the button */
+.firebaseui-id-idp-google svg {
+  width: 2px;  /* Decrease the width as needed */
+  height: 2px; /* Decrease the height to maintain aspect ratio */
+}
+.firebaseui-id-idp-google svg {
+  margin-right: 8px; /* Adds space between the icon and the text */
 }
 
-.bmd-layout-drawer > header {
-  background-color: #800000;
-  color: white;
-}
-
-.bmd-layout-drawer > ul {
-  background-color: #DDDDDD;
-}
-
-.list-group-item :first-child {
-  margin-right: 0.75em;
-}
-
-#menuEdit, #menuDelete {
-  display: none;
-}
