@@ -109,14 +109,25 @@ footer {
   left: -128px;
 }
 
-#rosefireButton {
-  display: block;
-  margin: 60px auto;
+.bmd-layout-content {
+  height: 100vh;
+}
+
+.bmd-layout-drawer > header {
+  background-color: #800000;
   color: white;
-  background: #800000;
-  font-size: 1.1em;
-  padding: 10px 30px;
-  border-radius: 5px;
+}
+
+.bmd-layout-drawer > ul {
+  background-color: #DDDDDD;
+}
+
+.list-group-item :first-child {
+  margin-right: 0.75em;
+}
+
+#menuEdit, #menuDelete {
+  display: none;
 }
 
 #signInText {

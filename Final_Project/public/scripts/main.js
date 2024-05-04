@@ -19,10 +19,10 @@ function convertHtmlToElement(html) {
 rhit.ListPageController = class {
 	constructor() {
 		document.querySelector("#menuShowAllPhotos").addEventListener("click", (event) => {
-			window.location.href = "/bucket.html";
+			window.location.href = "/mainpage.html";
 		});
 		document.querySelector("#menuShowMyPhotos").addEventListener("click", (event) => {
-			window.location.href = `/bucket.html?uid=${rhit.authManager.uid}`
+			window.location.href = `/mainpage.html?uid=${rhit.authManager.uid}`
 		});
 		document.querySelector("#menuSignOut").addEventListener("click", (event) => {
 			rhit.authManager.signOut();
@@ -146,7 +146,7 @@ rhit.PhotoPageController = class {
 		document.querySelector("#submitDeletePhoto").addEventListener("click", () => {
 			rhit.singlePhotoManager.deletePhoto().then(() => {
 				console.log("Photo successfully deleted");
-				window.location.href = "/bucket.html";
+				window.location.href = "/mainpage.html";
 			}).catch(error => {
 				console.error("Error removing photo: ", error);
 			});
@@ -262,7 +262,7 @@ rhit.AuthManager = class {
 
 rhit.checkForRedirects = function () {
 	if (document.querySelector("#loginPage") && rhit.authManager.isSignedIn) {
-		window.location.href = "/bucket.html";
+		window.location.href = "/mainpage.html";
 	}
 	if (!document.querySelector("#loginPage") && !rhit.authManager.isSignedIn) {
 		window.location.href = "/";
@@ -294,7 +294,7 @@ rhit.initializePage = function () {
 
 rhit.startFirebaseUI = function () {
 	var uiConfig = {
-        signInSuccessUrl: '/bucket.html',
+        signInSuccessUrl: '/mainpage.html',
         signInOptions: [
           firebase.auth.GoogleAuthProvider.PROVIDER_ID,
           firebase.auth.EmailAuthProvider.PROVIDER_ID,
