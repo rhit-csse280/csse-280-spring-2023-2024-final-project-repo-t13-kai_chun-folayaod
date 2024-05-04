@@ -13,19 +13,22 @@ body {
   display: flex;
   flex-direction: column;
 }
-
+.firebase-btn {
+  width: 250px !important;
+  height: 50px !important;
+ 
+}
 footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
-  width: 1600px;
-  background-color: black;
+  width: 100%;
+  background-color: #333; /* or your preferred color */
   color: white;
-  padding: 20px;
-  margin-top: auto;
-  
-  
+  text-align: center;
+  padding: 20px 0; /* Adjust padding to suit your design */
 }
+
 .Ws_Sports_Logo img{
     width: 40px; /* or your desired size */
     height: 40px;
@@ -51,4 +54,97 @@ footer {
 }
 .social-media{
     margin-left: 725px;
+} 
+
+#columns {
+  column-count: 3;
+  column-gap: 5px;
+}
+
+@media (min-width: 992px) {
+  #columns {
+      column-count: 4;
+      column-gap: 10px;
+  }
+}
+
+.pin {
+  display: inline-block;
+  box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
+  margin: 0 2px 15px;
+  padding: 10px;
+  padding-bottom: 5px;
+  background: linear-gradient(45deg, #FFF, #EEE);
+  transition: all .2s ease;
+}
+
+.pin img {
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 8px;
+  margin-bottom: 3px;
+}
+
+.pin p {
+  font: 12px/18px Arial, sans-serif;
+  text-align: center;
+  color: #333;
+  margin: 0;
+  max-height: 18px;
+  overflow: hidden;
+}
+
+#fab {
+  background-color: #800000;
+  bottom:10px;
+  color: white;
+  position:fixed;
+  right:10px;
+  z-index:999;
+}
+
+#fab:active {
+  transform: translatey(2px);
+  opacity: 0.8;
+}
+
+.dropdown-menu-right {
+  left: -128px;
+}
+
+#rosefireButton {
+  display: block;
+  margin: 60px auto;
+  color: white;
+  background: #800000;
+  font-size: 1.1em;
+  padding: 10px 30px;
+  border-radius: 5px;
+}
+
+#signInText {
+  text-align: center;
+  font-size: 3em;
+  margin-bottom: 1em;
+}
+
+.bmd-layout-content {
+  height: 100vh;
+}
+
+.bmd-layout-drawer > header {
+  background-color: #800000;
+  color: white;
+}
+
+.bmd-layout-drawer > ul {
+  background-color: #DDDDDD;
+}
+
+.list-group-item :first-child {
+  margin-right: 0.75em;
+}
+
+#menuEdit, #menuDelete {
+  display: none;
 }
