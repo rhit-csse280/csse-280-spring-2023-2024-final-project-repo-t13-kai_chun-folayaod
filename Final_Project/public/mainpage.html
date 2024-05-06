@@ -8,13 +8,14 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
   <link rel="stylesheet" href="styles/bootstrap-material-design.min.css">
   <link rel="stylesheet" href="styles/main.css">
-  <title>My Photo Bucket</title>
+  <title>Main Page</title>
 </head>
 
 <body>
   <nav class="navbar navbar-dark fixed-top">
-    <a class="navbar-brand" href="#">My Photo Bucket</a>
+    <a class="navbar-brand" href="#">Main Page</a>
   </nav>
+  <!-- The toggle drawer -->
   <div class="bmd-layout-container bmd-drawer-f-l bmd-drawer-overlay">
     <header class="bmd-layout-header">
       <div class="navbar navbar-dark bg-faded fixed-top justify-content-start">
@@ -22,17 +23,18 @@
           <span class="sr-only">Toggle Drawer</span>
           <i class="material-icons">menu</i>
         </button>
-        <a class="navbar-brand" href="#">&nbsp;&nbsp;My Photo Bucket</a>
+        <a class="navbar-brand" href="#">&nbsp;&nbsp;Main Page</a>
       </div>
     </header>
+
     <div id="dw-s2" class="bmd-layout-drawer bg-faded">
-      <header>
-        <a class="navbar-brand">My Photo Bucket</a>
-      </header>
+        <header>
+          <a class="navbar-brand">Main Page</a>
+        </header>
       <ul class="list-group">
-        <a id="menuShowAllPhotos"class="list-group-item"><i class="material-icons">people_alt</i>Show all photos</a>
-        <a id="menuShowMyPhotos"class="list-group-item"><i class="material-icons">person</i>Show my photos</a>
-        <a id="menuSignOut"class="list-group-item"><i class="material-icons">login</i>Sign out</a>
+        <a id="menuShowAllPhotos"class="list-group-item"><i class="material-icons">store</i>Show main page </a>
+        <a id="menuShowMyPhotos"class="list-group-item"><i class="material-icons">shop</i>Show my items</a>
+        <a id="menuSignOut"class="list-group-item"><i class="material-icons">logout</i>Sign out</a>
       </ul>
     </div>
     <main class="bmd-layout-content">
@@ -42,8 +44,62 @@
         </div>
       </div>
     </main>
+
+    <!-- Search bar -->
+    <div class="search-container">
+      <input type="text" id="searchBar" placeholder="Search for items..." onkeyup="searchItems()">
+    </div>
+
+    <!-- All the items  -->
+    <div class="product-container">
+      <div class="product-card">
+        <img src="./Photos/Bablot_Yellow_Racket.jpg" alt="ASICS Shoes">
+        <h3>ASICS Shoes</h3>
+        <p>BEST SELLER</p>
+        <p class="price">$100.00</p>
+      </div>
+      <div class="product-card">
+        <img src="./Photos/Asics_Blue_Shoes.png" alt="ASICS Shoes">
+        <h3>ASICS Shoes</h3>
+        <p>BEST SELLER</p>
+        <p class="price">$100.00</p>
+      </div>
+      <div class="product-card">
+        <img src="./Photos/shopping (1).webp" alt="ASICS Shoes">
+        <h3>ASICS Shoes</h3>
+        <p>BEST SELLER</p>
+        <p class="price">$100.00</p>
+      </div>
+      <div class="product-card">
+        <img src="./Photos/1041A079_105_SR_RT_GLB.webp" alt="ASICS Shoes">
+        <h3>ASICS Shoes</h3>
+        <p>BEST SELLER</p>
+        <p class="price">$100.00</p>
+      </div>
+    </div>
+
+    <!-- The footer -->
+    <div id="footer">
+      <footer>
+        <div class="footer-content">
+          <p>Contact: protenistsw@gmail.com</p>
+          <p>+886 7 381 2128</p>
+          <p>高雄市三民區鼎山街195號, Kaohsiung, Taiwan</p>
+          <div class="social-media">
+            <a href="https://facebook.com" class="facebook-button"
+              ><img src="./Photos/FB-Icon.png" alt="Facebook"
+            /></a>
+            <a
+              href="https://www.instagram.com/ws.sport.tw?igsh=MTk3YjZpOWhqenVwaQ=="
+              class="facebook-button"
+              ><img src="./Photos/Ig-icon.png" alt="Facebook"
+            /></a>
+          </div>
+        </div>
+      </footer>
+    </div>
   </div>
-  <button id="fab" type="button" class="btn bmd-btn-fab" data-toggle="modal" data-target="#addPhotoDialog">
+  <!-- <button id="fab" type="button" class="btn bmd-btn-fab" data-toggle="modal" data-target="#addPhotoDialog">
     <i class="material-icons">add</i>
   </button>
   <div class="modal fade" id="addPhotoDialog" tabindex="-1" role="dialog" aria-labelledby="Add Photo Dialog" aria-hidden="true">
@@ -70,7 +126,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
   <script src="scripts/jquery.min.js"></script>
   <script src="scripts/popper.js"></script>
   <script src="scripts/bootstrap-material-design.js"></script>

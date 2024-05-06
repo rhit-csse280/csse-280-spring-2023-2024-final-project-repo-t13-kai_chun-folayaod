@@ -10,6 +10,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons"
     />
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css" />
     <link rel="stylesheet" href="styles/bootstrap-material-design.min.css" />
     <link rel="stylesheet" href="styles/main.css" />
     <title>Wilson Tennis Shop</title>
@@ -20,16 +21,14 @@
       <a class="navbar-brand" href="#">Ws Sports</a>
     </nav>
     <div id="mainPage" class="container page-container">
-      <div class="Ws_Sports_Logo">
+      <!-- <div class="Ws_Sports_Logo">
         <img src="./Photos/Ws-sport-logo.png" alt="Facebook" />
-      </div>
-      <div id="loginPage" class="container page-container">
-        <div id="signInText">Please sign in to<br />start shopping</div>
-        <div id="firebaseui-auth-container"></div>
-        <button type="button" class="btn" id="rosefireButton">
-          Sign in with Rosefire
-        </button>
-      </div>
+      </div> -->
+       <div id="loginPage" class="container page-container">
+        <div id="signInContainer">
+          <h1>Sign In</h1>
+          <div id="firebaseui-auth-container"></div>
+        </div>
       <!-- Footer -->
       <div id="footer">
         <footer>
