@@ -210,3 +210,26 @@ footer {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
+/* Add to cart button */
+.add-to-cart-btn {
+  margin-bottom: 30px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+  background-color: blue; /* Add this line */
+}
+
+.add-to-cart-btn:hover {
+  background-color: #45a049;
+}
+
+/* Purchase description page */
+#purchaseDescription{
+  color: black;
+  font-weight: bold;
+  font-size: 24px;
+}

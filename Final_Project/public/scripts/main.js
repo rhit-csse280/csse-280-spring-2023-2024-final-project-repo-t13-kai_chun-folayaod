@@ -8,7 +8,7 @@ rhit.KEY_AUTHOR = "author";
 rhit.photoBucketManager = null;
 rhit.singlePhotoManager = null;
 rhit.authManager = null;
-
+rhit.pageUrl = "/mainpage.html";
 function convertHtmlToElement(html) {
 	var template = document.createElement('template');
 	html = html.trim();
@@ -27,21 +27,24 @@ rhit.ListPageController = class {
 		document.querySelector("#menuSignOut").addEventListener("click", (event) => {
 			rhit.authManager.signOut();
 		});
+		document.querySelector("#placeAnOrder").addEventListener("click",(event)=>{
+			window.location.href = "/orderDescription.html";
+			rhit.pageUrl = "/orderDescription.html";
+		});
+		// document.querySelector("#submitAddPhoto").addEventListener("click", (event) => {
+		// 	const imageURL = document.querySelector("#inputImageURL").value;
+		// 	const caption = document.querySelector("#inputCaption").value;
+		// 	rhit.photoBucketManager.addPhoto(imageURL, caption);
+		// });
 
-		document.querySelector("#submitAddPhoto").addEventListener("click", (event) => {
-			const imageURL = document.querySelector("#inputImageURL").value;
-			const caption = document.querySelector("#inputCaption").value;
-			rhit.photoBucketManager.addPhoto(imageURL, caption);
-		});
-
-		$("#addPhotoDialog").on("show.bs.modal", (event) => {
-			document.querySelector("#inputImageURL").value = "";
-			document.querySelector("#inputCaption").value = "";
-		});
-		$("#addPhotoDialog").on("shown.bs.modal", (event) => {
-			document.querySelector("#inputImageURL").focus();
-		});
-		rhit.photoBucketManager.startListening(this.updatePhotoList.bind(this));
+		// $("#addPhotoDialog").on("show.bs.modal", (event) => {
+		// 	document.querySelector("#inputImageURL").value = "";
+		// 	document.querySelector("#inputCaption").value = "";
+		// });
+		// $("#addPhotoDialog").on("shown.bs.modal", (event) => {
+		// 	document.querySelector("#inputImageURL").focus();
+		// });
+		// rhit.photoBucketManager.startListening(this.updatePhotoList.bind(this));
 	}
 	updatePhotoList() {
 		console.log("Updating the photo list on the page");
@@ -210,13 +213,7 @@ rhit.SinglePhotoManager = class {
 	}
 }
 
-rhit.LoginPageController = class {
-	constructor() {
-		document.querySelector("#rosefireButton").onclick = () => {
-			rhit.authManager.signInWithRosefire();
-		};
-	};
-}
+
 
 rhit.AuthManager = class {
 	constructor() {
@@ -228,24 +225,6 @@ rhit.AuthManager = class {
 			this.user = user;
 			changeListener();
 		});
-	}
-	signInWithRosefire() {
-		Rosefire.signIn("77b82ca4-c269-459e-92a2-d348f0c0b34b", (err, rfUser) => {
-			if (err) {
-			  console.log("Rosefire error!", err);
-			  return;
-			}
-			console.log("Rosefire success!", rfUser);
-			firebase.auth().signInWithCustomToken(rfUser.token).catch(error => {
-				const errorCode = error.code;
-				const errorMessage = error.message;
-				if (errorCode === 'auth/invalid-custom-token') {
-					alert('The token you provided is invalid.');
-				} else {
-					console.error("Firebase auth error:", error);
-				}
-			});
-		  });
 	}
 	signOut() {
 		firebase.auth().signOut().catch(error => {
@@ -262,7 +241,7 @@ rhit.AuthManager = class {
 
 rhit.checkForRedirects = function () {
 	if (document.querySelector("#loginPage") && rhit.authManager.isSignedIn) {
-		window.location.href = "/mainpage.html";
+		// window.location.href = `${rhit.pageUrl}`;
 	}
 	if (!document.querySelector("#loginPage") && !rhit.authManager.isSignedIn) {
 		window.location.href = "/";
@@ -315,3 +294,4 @@ rhit.main = function () {
 };
 
 rhit.main();
+
