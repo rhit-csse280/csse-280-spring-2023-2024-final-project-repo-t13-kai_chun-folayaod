@@ -4,8 +4,8 @@ body {
 }
 
 .navbar {
-  background-color: gray;
-  color:black;
+  background-color: #800000;
+  color: white;
 }
 
 .page-container {
@@ -13,39 +13,16 @@ body {
   display: flex;
   flex-direction: column;
 }
-#signInText {
-  text-align: center;
-  font-size: 2em;
-  margin-bottom: 1em;
+.firebase-btn {
+  width: 250px !important;
+  height: 50px !important;
+ 
 }
-#loginPage h1 {
-text-align: center;
-font-size: 40px;
-}
-#signInContainer{
-  background-color: white;
-  box-shadow: 5px 10px black;
-  display: block;
-  position: absolute;
-  padding: 20px;
-  left: 0;
-  right:0;
-  margin-top: 40px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 400px;
-}
-#signInContainer h1{
-  font-family: "DM Serif Display", "Rubik";
-}
-
-
 footer {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  /* height: 160PX; */
   background-color: #333; /* or your preferred color */
   color: white;
   text-align: center;
@@ -53,22 +30,22 @@ footer {
 }
 
 .Ws_Sports_Logo img{
-    width: 40px; 
+    width: 40px; /* or your desired size */
     height: 40px;
     margin-left: -200px;
 }
 .facebook-button img {
-    width: 40px;
+    width: 40px; /* or your desired size */
     height: 40px;
     cursor: pointer;
   }
 
 .footer-content p {
-  margin: 5px 0; 
+  margin: 5px 0; /* Spacing between text */
   text-align: center;
 }
 .footer-content p {
-    margin: 5px 0; 
+    margin: 5px 0; /* Spacing between text */
 }
 
 .social-media a {
@@ -114,7 +91,7 @@ footer {
   overflow: hidden;
 }
 
-/* #fab {
+#fab {
   background-color: #800000;
   bottom:10px;
   color: white;
@@ -126,115 +103,60 @@ footer {
 #fab:active {
   transform: translatey(2px);
   opacity: 0.8;
-} */
+}
 
 .dropdown-menu-right {
   left: -128px;
 }
 
-.bmd-layout-content {
-  height: 100vh;
-}
-
-.bmd-layout-drawer > header {
-  background-color: gray;
+#rosefireButton {
+  display: block;
+  margin: 60px auto;
   color: white;
-}
-
-.bmd-layout-drawer > ul {
-  background-color: #DDDDDD;
-}
-
-.list-group-item :first-child {
-  margin-right: 0.75em;
-}
-
-#menuEdit, #menuDelete {
-  display: none;
-}
-
-
-/* For Main Page */
-/* All the items */
-.product-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
-  padding: 20px;
-  /* background-color: #f4f4f4; */
-}
-
-/* Search bar */
-.search-container {
-  display: flex;
-  justify-content: center;
-  align-items: center; /* This line is optional, it vertically centers if your container has a height */
-  height:max-content; /* Adjust height as needed */
-  overflow: hidden;
-  position: absolute; /* Set the navbar to fixed position */
-  top: 0; /* Position the navbar at the top of the page */
-  width: 100%; /* Full width */
-}
-
-.product-card {
-  background: white;
-  border: 2px solid #ccc;
-  height: 400px;
-  margin-top: 0px;
-  margin-bottom: 2000px;
-  padding: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  text-align: center;
-  justify-content: center;
-  
-}
-.product-card img {
-  width: 130px;
-  height: 200px;
-}
-.product-card h3 {
-  color: #333;
-  margin-top: 40px;
-  font-weight: bold;
-  font-size: 1.2em;
-}
-.product-card p {
-  color: #666;
-  font-weight: bold;
-  font-size: 1em;
-}
-.product-card .price {
-  color: red;
-  font-weight: bold;
-  font-size: 1.5em;
-}
-
-#searchBar {
-  width: 400px; /* Adjust width as needed */
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
+  background: #800000;
+  font-size: 1.1em;
+  padding: 10px 30px;
   border-radius: 5px;
 }
 
-/* Add to cart button */
-.add-to-cart-btn {
-  padding: 12px 24px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  width: 50%;
-  margin-top: 10px;
-  background-color: blue; /* Add this line */
+#signInText {
+  text-align: center;
+  font-size: 3em;
+  margin-bottom: 1em;
 }
 
-.add-to-cart-btn:hover {
-  background-color: #45a049;
+.firebaseui-idp-button {
+  width: 100%;  /* Makes all buttons full width of their container */
+  height: 50px; /* Fixed height for all buttons */
+  margin: 10px 0; /* Adds vertical spacing between buttons */
+}
+.firebaseui-idp-button .firebaseui-idp-text {
+  text-align: center;
+  width: 100%;
+}
+.firebaseui-idp-button {
+  font-family: 'Roboto', sans-serif; /* Example: Roboto font */
+  font-size: 16px; /* Suitable font size */
+  color: #fff; /* Text color */
+}
+.firebaseui-id-idp-google {
+  background-color: #4285F4; /* Google color */
+}
+.firebaseui-id-idp-email {
+  background-color: #DB4437; /* Example: Red for email */
+}
+.firebaseui-id-idp-phone {
+  background-color: #0F9D58; /* Example: Green for phone */
+}
+.firebaseui-id-idp-anonymous {
+  background-color: #F4B400; /* Example: Yellow for guest */
+}
+/* Example assuming the icon is an SVG inside the button */
+.firebaseui-id-idp-google svg {
+  width: 2px;  /* Decrease the width as needed */
+  height: 2px; /* Decrease the height to maintain aspect ratio */
+}
+.firebaseui-id-idp-google svg {
+  margin-right: 8px; /* Adds space between the icon and the text */
 }
 
-/* Purchase description page */
-#purchaseDescription{
-  color: black;
-  font-weight: bold;
-  font-size: 24px;
-}
