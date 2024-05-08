@@ -163,6 +163,19 @@ footer {
   padding: 20px;
   /* background-color: #f4f4f4; */
 }
+
+/* Search bar */
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* This line is optional, it vertically centers if your container has a height */
+  height:max-content; /* Adjust height as needed */
+  overflow: hidden;
+  position: absolute; /* Set the navbar to fixed position */
+  top: 0; /* Position the navbar at the top of the page */
+  width: 100%; /* Full width */
+}
+
 .product-card {
   background: white;
   border: 2px solid #ccc;
@@ -172,6 +185,8 @@ footer {
   padding: 10px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   text-align: center;
+  justify-content: center;
+  
 }
 .product-card img {
   width: 130px;
@@ -192,15 +207,6 @@ footer {
   color: red;
   font-weight: bold;
   font-size: 1.5em;
-}
-
-
-/* Search bar */
-.search-container {
-  display: flex;
-  justify-content: center;
-  align-items: center; /* This line is optional, it vertically centers if your container has a height */
-  height: 100px; /* Adjust height as needed */
 }
 
 #searchBar {
