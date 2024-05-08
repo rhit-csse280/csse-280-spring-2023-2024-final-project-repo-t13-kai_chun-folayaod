@@ -18,11 +18,20 @@ function convertHtmlToElement(html) {
 
 rhit.ListPageController = class {
 	constructor() {
+
+		document.querySelectorAll(".add-to-cart-btn").forEach((button) => {
+			button.addEventListener("click", (event) => {
+				console.log("try");
+			});
+		});
+	
+
 		document.querySelector("#menuShowAllPhotos").addEventListener("click", (event) => {
 			window.location.href = "/mainpage.html";
 		});
 		document.querySelector("#menuShowMyPhotos").addEventListener("click", (event) => {
-			window.location.href = `/mainpage.html?uid=${rhit.authManager.uid}`
+			// window.location.href = `/mainpage.html?uid=${rhit.authManager.uid}`;
+			window.location.href = `/cart.html`;
 		});
 		document.querySelector("#menuSignOut").addEventListener("click", (event) => {
 			rhit.authManager.signOut();
