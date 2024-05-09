@@ -22,6 +22,9 @@ rhit.ListPageController = class {
 		document.querySelectorAll(".add-to-cart-btn").forEach((button) => {
 			button.addEventListener("click", (event) => {
 				console.log("try");
+				const imageURL = document.querySelector("#inputImageURL").value;
+				const caption = "try";
+				rhit.photoBucketManager.addPhoto(imageURL, caption);
 			});
 		});
 	
@@ -46,14 +49,14 @@ rhit.ListPageController = class {
 		// 	rhit.photoBucketManager.addPhoto(imageURL, caption);
 		// });
 
-		// $("#addPhotoDialog").on("show.bs.modal", (event) => {
-		// 	document.querySelector("#inputImageURL").value = "";
-		// 	document.querySelector("#inputCaption").value = "";
-		// });
-		// $("#addPhotoDialog").on("shown.bs.modal", (event) => {
-		// 	document.querySelector("#inputImageURL").focus();
-		// });
-		// rhit.photoBucketManager.startListening(this.updatePhotoList.bind(this));
+		$("#addPhotoDialog").on("show.bs.modal", (event) => {
+			document.querySelector("#inputImageURL").value = "";
+			document.querySelector("#inputCaption").value = "";
+		});
+		$("#addPhotoDialog").on("shown.bs.modal", (event) => {
+			document.querySelector("#inputImageURL").focus();
+		});
+		rhit.photoBucketManager.startListening(this.updatePhotoList.bind(this));
 	}
 	updatePhotoList() {
 		console.log("Updating the photo list on the page");
@@ -64,7 +67,7 @@ rhit.ListPageController = class {
 			const photoCard = this.createPhotoCard(photo);
 
 			photoCard.onclick = () => {
-				window.location.href = `/photo.html?id=${photo.id}`;
+				window.location.href = `/cart.html?id=${photo.id}`;
 			}
 
 			newPhotoList.appendChild(photoCard);

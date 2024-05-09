@@ -114,7 +114,7 @@ footer {
   overflow: hidden;
 }
 
-/* #fab {
+#fab {
   background-color: #800000;
   bottom:10px;
   color: white;
@@ -126,7 +126,7 @@ footer {
 #fab:active {
   transform: translatey(2px);
   opacity: 0.8;
-} */
+}
 
 .dropdown-menu-right {
   left: -128px;
@@ -166,17 +166,30 @@ footer {
 .product-card {
   background: white;
   border: 2px solid #ccc;
-  height: 400px;
-  margin-top: 0px;
-  margin-bottom: 2000px;
+  height: 500px;
+  margin-top: 50px;
+  margin-bottom: 300px;
   padding: 10px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   text-align: center;
 }
+
+  .products_area{
+    font-size: 70px;
+    margin-top: 30px;
+    text-align: center;
+    font-weight: bold;
+  }
 .product-card img {
-  width: 130px;
+  width: 180px;
   height: 200px;
 }
+#special_img{
+  width: 100px;
+  height: 200px;
+}
+
+
 .product-card h3 {
   color: #333;
   margin-top: 40px;
@@ -189,7 +202,7 @@ footer {
   font-size: 1em;
 }
 .product-card .price {
-  color: red;
+  color: black;
   font-weight: bold;
   font-size: 1.5em;
 }
@@ -197,6 +210,7 @@ footer {
 
 /* Search bar */
 .search-container {
+  margin-top: 60px;
   display: flex;
   justify-content: center;
   align-items: center; /* This line is optional, it vertically centers if your container has a height */
@@ -204,6 +218,7 @@ footer {
 }
 
 #searchBar {
+  margin-top: 20px;
   width: 400px; /* Adjust width as needed */
   padding: 10px;
   font-size: 16px;
@@ -213,13 +228,14 @@ footer {
 
 /* Add to cart button */
 .add-to-cart-btn {
+  color: white  ;
   padding: 12px 24px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   width: 50%;
   margin-top: 10px;
-  background-color: blue; /* Add this line */
+  background-color: black; /* Add this line */
 }
 
 .add-to-cart-btn:hover {
@@ -231,4 +247,12 @@ footer {
   color: black;
   font-weight: bold;
   font-size: 24px;
+}
+.purchaseDes-Container{
+  height: 400px;
+  margin-top: 50px;
+  margin-bottom: 300px;
+  padding: 10px;
+  text-align: center;
+
 }

@@ -38,23 +38,56 @@
         <a href="/" id="menuSignOut"class="list-group-item"><i class="material-icons">logout</i>Sign out</a>
       </ul>
     </div>
-    <main class="bmd-layout-content">
-      <div id="listPage" class="container page-container">
-        <div id="columns">
-          
-        </div>
-      </div>
-    </main>
-
+   
     <!-- Search bar -->
     <div class="search-container">
       <input type="text" id="searchBar" placeholder="Search for items..." onkeyup="searchItems()">
     </div>
 
+    <h1 class="products_area">Racket</h1>
     <!-- All the items  -->
     <div class="product-container">
+      <!-- The first row Tennis Racket -->
+
+       <div class="product-card">
+        <img src="./Photos/Bablot_Yellow_Racket.jpg" id="special_img" alt="ASICS Shoes">
+        <h3>ASICS Shoes</h3>
+        <p>BEST SELLER</p>
+        <p class="price">$100.00</p>
+        <button type="button" class="add-to-cart-btn">Add to Cart</button>
+      </div>
+
       <div class="product-card">
-        <img src="./Photos/Bablot_Yellow_Racket.jpg" alt="ASICS Shoes">
+        <img src="./Photos/babolat-pure-drive-25-tennis-racket.jpg" alt="ASICS Shoes">
+        <h3>ASICS Shoes</h3>
+        <p>BEST SELLER</p>
+        <p class="price">$100.00</p>
+        <button type="button" class="add-to-cart-btn">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="./Photos/Babolat-2023-Nadal-Junior-Racquet-5.png" alt="ASICS Shoes">
+        <h3>ASICS Shoes</h3>
+        <p>BEST SELLER</p>
+        <p class="price">$100.00</p>
+        <button type="button" class="add-to-cart-btn">Add to Cart</button>
+      </div>
+
+      <div class="product-card">
+        <img src="./Photos/Yonex_Racket.jpg" alt="ASICS Shoes">
+        <h3>ASICS Shoes</h3>
+        <p>BEST SELLER</p>
+        <p class="price">$100.00</p>
+        <button type="button" class="add-to-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
+
+    <h1 class="products_area">Shoes</h1>
+      <!-- The seond row shoes -->
+        <div class="product-container">
+      <div class="product-card">
+        <img src="./Photos/1041A375_101_SR_RT_GLB.webp" alt="ASICS Shoes">
         <h3>ASICS Shoes</h3>
         <p>BEST SELLER</p>
         <p class="price">$100.00</p>
@@ -69,21 +102,89 @@
         <button type="button" class="add-to-cart-btn">Add to Cart</button>
       </div>
       <div class="product-card">
-        <img src="./Photos/shopping (1).webp" alt="ASICS Shoes">
+        <img src="./Photos/Nike_White_Shoes.png" alt="ASICS Shoes">
         <h3>ASICS Shoes</h3>
         <p>BEST SELLER</p>
         <p class="price">$100.00</p>
         <button type="button" class="add-to-cart-btn">Add to Cart</button>
       </div>
       <div class="product-card">
-        <img src="./Photos/1041A079_105_SR_RT_GLB.webp" alt="ASICS Shoes">
+        <img src="./Photos/Asics_GrayGrenn_Shoes.png" alt="ASICS Shoes">
+        <h3>ASICS Shoes</h3>
+        <p>BEST SELLER</p>
+        <p class="price">$100.00</p>
+        <button type="button" class="add-to-cart-btn">Add to Cart</button>
+      </div>
+      </div>
+
+
+
+      <h1 class="products_area">Bags</h1>
+      <!-- The third row bags -->
+
+
+      <div class="product-container">
+      <div class="product-card">
+        <img src="./Photos/Yonex_Black_Bag.jpg" alt="ASICS Shoes">
+        <h3>ASICS Shoes</h3>
+        <p>BEST SELLER</p>
+        <p class="price">$100.00</p>
+        <button type="button" class="add-to-cart-btn">Add to Cart</button>
+      </div>
+      
+      <div class="product-card">
+        <img src="./Photos/Yonex_Purple_Bag.jpg" alt="ASICS Shoes">
+        <h3>ASICS Shoes</h3>
+        <p>BEST SELLER</p>
+        <p class="price">$100.00</p>
+        <button type="button" class="add-to-cart-btn">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="./Photos/Head_Red_Bag.jpg" alt="ASICS Shoes">
+        <h3>ASICS Shoes</h3>
+        <p>BEST SELLER</p>
+        <p class="price">$100.00</p>
+        <button type="button" class="add-to-cart-btn">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="./Photos/Head_Colorful_Bag.jpg" alt="ASICS Shoes">
         <h3>ASICS Shoes</h3>
         <p>BEST SELLER</p>
         <p class="price">$100.00</p>
         <button type="button" class="add-to-cart-btn">Add to Cart</button>
       </div>
     </div>
+    
 
+
+    <button id="fab" type="button" class="btn bmd-btn-fab" data-toggle="modal" data-target="#addPhotoDialog">
+      <i class="material-icons">add</i>
+    </button>
+    <div class="modal fade" id="addPhotoDialog" tabindex="-1" role="dialog" aria-labelledby="Add Photo Dialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add a photo</h5>
+          </div>
+          <div class="modal-body">
+            <div>Image:</div>
+            <div class="form-group bmd-form-group">
+              <label for="#inputImageURL" class="bmd-label-floating">URL to existing image</label>
+              <input type="text" class="form-control" id="inputImageURL">
+            </div>
+            <div>Caption:</div>
+            <div class="form-group bmd-form-group">
+              <label for="#inputCaption" class="bmd-label-floating">Image related text</label>
+              <input type="text" class="form-control" id="inputCaption">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
+            <button id="submitAddPhoto" type="button" class="btn btn-primary" data-dismiss="modal">CREATE</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- The footer -->
     <div id="footer">
       <footer>
