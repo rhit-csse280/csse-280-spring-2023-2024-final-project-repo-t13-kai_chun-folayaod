@@ -297,6 +297,25 @@ rhit.startFirebaseUI = function () {
       ui.start('#firebaseui-auth-container', uiConfig);
 }
 
+function searchItems(value) {
+    const searchTerm = value.toLowerCase().trim();
+
+    // Define mappings from keywords to element IDs
+    const keywordToSection = {
+        'rackets': 'rackets',
+        'shoes': 'shoes',
+        'bags': 'bags'
+    };
+
+    // Find the section ID based on the search term
+    Object.keys(keywordToSection).forEach(key => {
+        if (searchTerm.includes(key)) {
+            const sectionId = keywordToSection[key];
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+}
+
 rhit.main = function () {
 	rhit.authManager = new rhit.AuthManager();
 	rhit.authManager.startListening(() => {
