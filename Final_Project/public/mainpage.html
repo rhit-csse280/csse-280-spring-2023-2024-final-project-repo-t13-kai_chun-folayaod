@@ -55,7 +55,7 @@
         <h3>ASICS Shoes</h3>
         <p>BEST SELLER</p>
         <p class="price">$100.00</p>
-        <button type="button" class="add-to-cart-btn">Add to Cart</button>
+        <button data-toggle="modal" data-target="#confirmationModal" type="button" class="add-to-cart-btn">Add to Cart</button>
       </div>
 
       <div class="product-card">
@@ -63,7 +63,7 @@
         <h3>ASICS Shoes</h3>
         <p>BEST SELLER</p>
         <p class="price">$100.00</p>
-        <button type="button" class="add-to-cart-btn">Add to Cart</button>
+        <button data-toggle="modal" data-target="#confirmationModal" type="button" class="add-to-cart-btn">Add to Cart</button>
       </div>
 
       <div class="product-card">
@@ -71,7 +71,7 @@
         <h3>ASICS Shoes</h3>
         <p>BEST SELLER</p>
         <p class="price">$100.00</p>
-        <button type="button" class="add-to-cart-btn">Add to Cart</button>
+        <button data-toggle="modal" data-target="#confirmationModal" type="button" class="add-to-cart-btn">Add to Cart</button>
       </div>
 
       <div class="product-card">
@@ -79,7 +79,7 @@
         <h3>ASICS Shoes</h3>
         <p>BEST SELLER</p>
         <p class="price">$100.00</p>
-        <button type="button" class="add-to-cart-btn">Add to Cart</button>
+        <button data-toggle="modal" data-target="#confirmationModal" type="button" class="add-to-cart-btn">Add to Cart</button>
       </div>
     </div>
 
@@ -92,7 +92,7 @@
         <h3>ASICS Shoes</h3>
         <p>BEST SELLER</p>
         <p class="price">$100.00</p>
-        <button type="button" class="add-to-cart-btn">Add to Cart</button>
+        <button data-toggle="modal" data-target="#confirmationModal" type="button" class="add-to-cart-btn">Add to Cart</button>
       </div>
       
       <div class="product-card">
@@ -100,21 +100,21 @@
         <h3>ASICS Shoes</h3>
         <p>BEST SELLER</p>
         <p class="price">$100.00</p>
-        <button type="button" class="add-to-cart-btn">Add to Cart</button>
+        <button data-toggle="modal" data-target="#confirmationModal" type="button" class="add-to-cart-btn">Add to Cart</button>
       </div>
       <div class="product-card">
         <img src="./Photos/Nike_White_Shoes.png" alt="ASICS Shoes">
         <h3>ASICS Shoes</h3>
         <p>BEST SELLER</p>
         <p class="price">$100.00</p>
-        <button type="button" class="add-to-cart-btn">Add to Cart</button>
+        <button data-toggle="modal" data-target="#confirmationModal" type="button" class="add-to-cart-btn">Add to Cart</button>
       </div>
       <div class="product-card">
         <img src="./Photos/Asics_GrayGrenn_Shoes.png" alt="ASICS Shoes">
         <h3>ASICS Shoes</h3>
         <p>BEST SELLER</p>
         <p class="price">$100.00</p>
-        <button type="button" class="add-to-cart-btn">Add to Cart</button>
+        <button data-toggle="modal" data-target="#confirmationModal" type="button" class="add-to-cart-btn">Add to Cart</button>
       </div>
       </div>
 
@@ -130,7 +130,7 @@
         <h3>ASICS Shoes</h3>
         <p>BEST SELLER</p>
         <p class="price">$100.00</p>
-        <button type="button" class="add-to-cart-btn">Add to Cart</button>
+        <button data-toggle="modal" data-target="#confirmationModal" type="button" class="add-to-cart-btn">Add to Cart</button>
       </div>
       
       <div class="product-card">
@@ -138,26 +138,44 @@
         <h3>ASICS Shoes</h3>
         <p>BEST SELLER</p>
         <p class="price">$100.00</p>
-        <button type="button" class="add-to-cart-btn">Add to Cart</button>
+        <button data-toggle="modal" data-target="#confirmationModal" type="button" class="add-to-cart-btn">Add to Cart</button>
       </div>
       <div class="product-card">
         <img src="./Photos/Head_Red_Bag.jpg" alt="ASICS Shoes">
         <h3>ASICS Shoes</h3>
         <p>BEST SELLER</p>
         <p class="price">$100.00</p>
-        <button type="button" class="add-to-cart-btn">Add to Cart</button>
+        <button data-toggle="modal" data-target="#confirmationModal" type="button" class="add-to-cart-btn">Add to Cart</button>
       </div>
       <div class="product-card">
         <img src="./Photos/Head_Colorful_Bag.jpg" alt="ASICS Shoes">
         <h3>ASICS Shoes</h3>
         <p>BEST SELLER</p>
         <p class="price">$100.00</p>
-        <button type="button" class="add-to-cart-btn">Add to Cart</button>
+        <button  data-toggle="modal" data-target="#confirmationModal" type="button" class="add-to-cart-btn">Add to Cart</button>
       </div>
     </div>
     
+    <!-- This is the dialog to ask the user if they really want to add the product to the cart -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmationModalLabel">Confirm Addition</h5>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to add this item to your cart?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <button type="button" class="btn btn-primary" id="confirmAddToCart">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
 
+    <!-- This is the red circle icon in the right bottom -->
     <button id="fab" type="button" class="btn bmd-btn-fab" data-toggle="modal" data-target="#addPhotoDialog">
       <i class="material-icons">add</i>
     </button>

@@ -3,8 +3,6 @@ var rhit = rhit || {};
 rhit.COLLECTION_PHOTOS = "Photos";
 rhit.KEY_IMAGE_URL = "imageURL";
 rhit.KEY_CAPTION = "caption";
-rhit.KEY_LAST_UPDATED = "LastTouched";
-rhit.KEY_AUTHOR = "author";
 rhit.photoBucketManager = null;
 rhit.singlePhotoManager = null;
 rhit.authManager = null;
@@ -21,10 +19,14 @@ rhit.ListPageController = class {
 
 		document.querySelectorAll(".add-to-cart-btn").forEach((button) => {
 			button.addEventListener("click", (event) => {
+				
 				console.log("try");
 				const imageURL = document.querySelector("#inputImageURL").value;
 				const caption = "try";
+				const popUp = document.getElementById("confirmationModal");
+				popUp.style.display = "black";
 				rhit.photoBucketManager.addPhoto(imageURL, caption);
+
 			});
 		});
 	
