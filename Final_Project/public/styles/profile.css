@@ -1,0 +1,138 @@
+body {
+    background: gray;
+}
+
+.navbar {
+    background-color: gray;
+    color: black;
+}
+
+.page-container {
+    margin-top: 75px;
+}
+
+#fab {
+    background: #800000;
+    bottom: 10px;
+    color: white;
+    position: fixed;
+    right: 10px;
+    z-index: 999;
+}
+
+#fab:active {
+    opacity: 0.8;
+    transform: translateY(2px);
+}
+
+.card {
+    margin: 10px 0;
+}
+
+#listPage .card-title,
+#listPage .card-subtitle {
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    text-overflow: ellipsis;
+}
+
+.dropdown-menu-right {
+    left: -128px;
+}
+
+#roseLogo {
+    max-width: 320px;
+    margin: 20px auto;
+    display: block;
+}
+
+#rosefireButton {
+    display: block;
+    margin: 60px auto;
+    color: white;
+    background: #800000;
+    font-size: 1.1em;
+    padding: 10px 30px;
+    border-radius: 5px;
+}
+
+.bmd-layout-content {
+    height: 100vh;
+}
+
+.bmd-layout-drawer>header {
+    background-color: #800000;
+    color: white;
+}
+
+.bmd-layout-drawer>ul {
+    background-color: #ddd;
+}
+
+.list-group-item :first-child {
+    margin-right: 0.75rem;
+}
+
+#menuEdit,
+#menuDelete {
+    display: none;
+}
+
+.list-group-item {
+    cursor: pointer;
+}
+
+#submitName {
+    background-color: black;
+    color: white;
+}
+
+#authorBox {
+    position: fixed;
+    bottom: 10px;
+    right: 20px;
+    z-index: 999;
+ }
+ 
+ #detailPage #profilePhoto {
+    display: block;
+    max-width: 150px;
+    max-height: 200px;
+ }
+ 
+
+ footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    /* height: 160PX; */
+    background-color: #333; /* or your preferred color */
+    color: white;
+    text-align: center;
+    padding: 20px 0; /* Adjust padding to suit your design */
+  }
+  .Ws_Sports_Logo img{
+    width: 40px; 
+    height: 40px;
+    margin-left: -200px;
+}
+.facebook-button img {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+  }
+
+.footer-content p {
+  margin: 5px 0; 
+  text-align: center;
+}
+.footer-content p {
+    margin: 5px 0; 
+}
+
+.social-media a {
+    color: white;
+    padding: 0 10px;
+}

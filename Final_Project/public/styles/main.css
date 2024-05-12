@@ -1,4 +1,3 @@
-
 body {
   background: gray;
 }
@@ -12,6 +11,9 @@ body {
   margin-top: 75px;
   display: flex;
   flex-direction: column;
+}
+.profile-page-container{
+  margin-top: 75px;
 }
 #signInText {
   text-align: center;

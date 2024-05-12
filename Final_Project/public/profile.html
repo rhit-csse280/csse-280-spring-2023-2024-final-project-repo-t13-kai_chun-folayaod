@@ -12,7 +12,7 @@
     />
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.1.0/firebase-ui-auth.css" />
     <link rel="stylesheet" href="styles/bootstrap-material-design.min.css" />
-    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/profile.css" />
     <title>Ws Sports Shop</title>
   </head>
 
@@ -20,9 +20,6 @@
     <nav class="navbar navbar-dark fixed-top">
       <a class="navbar-brand" href="#">My Profile</a>
     </nav>
-    <nav class="navbar navbar-dark fixed-top">
-        <a class="navbar-brand" href="#">My Profile</a>
-      </nav>
       <!-- The toggle drawer -->
       <div class="bmd-layout-container bmd-drawer-f-l bmd-drawer-overlay">
         <header class="bmd-layout-header">
@@ -51,6 +48,22 @@
           <div id="profilePage" class="container page-container">
             <div id="columns">
               
+                <div class="card mx-auto" style="width: 18rem;">
+                    <img id="profilePhoto" class="card-img-top" src="Photos/FB-Icon.png" alt="Profile Photo">
+                    <a href="#" id="submitPhoto" class="btn btn-primary">Update Profile Photo</a>
+                    <div class="card-body">
+                      <p class="card-text">
+                        <div class="form-group">
+                            <label for="inputName" class="">Name</label>
+                            <input type="email" class="form-control" id="inputName" placeholder="Please type in your user name">
+                          </div>
+                      </p>
+                    </div>
+                </div>
+                <div class="mx-auto text-right" style="width: 18rem;">
+                    <button type="button" id="submitName" class="btn">Done</button>
+                </div>
+                
             </div>
           </div>
         </main>
