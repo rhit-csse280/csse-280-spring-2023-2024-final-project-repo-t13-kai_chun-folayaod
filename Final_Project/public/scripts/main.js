@@ -31,13 +31,6 @@ rhit.ListPageController = class {
 		});
 	
 
-		document.querySelector("#menuShowAllPhotos").addEventListener("click", (event) => {
-			window.location.href = "/mainpage.html";
-		});
-		document.querySelector("#menuShowMyPhotos").addEventListener("click", (event) => {
-			// window.location.href = `/mainpage.html?uid=${rhit.authManager.uid}`;
-			window.location.href = `/cart.html`;
-		});
 		document.querySelector("#menuSignOut").addEventListener("click", (event) => {
 			rhit.authManager.signOut();
 		});
@@ -323,6 +316,7 @@ function searchItems(value) {
         }
     });
 }
+
 
 rhit.main = function () {
 	rhit.authManager = new rhit.AuthManager();
