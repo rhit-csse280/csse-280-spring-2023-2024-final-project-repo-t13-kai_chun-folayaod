@@ -228,9 +228,10 @@ footer {
   width: 800px; /* Adjust width as needed */
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 25px;
+  border: 6px solid black;
 }
+
 
 /* Add to cart button */
 .add-to-cart-btn {
