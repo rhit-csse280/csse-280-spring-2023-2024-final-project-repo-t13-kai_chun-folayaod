@@ -168,7 +168,7 @@ footer {
   border: 2px solid #ccc;
   height: 500px;
   margin-top: 50px;
-  margin-bottom: 300px;
+  margin-bottom: 100px;
   padding: 10px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   text-align: center;
@@ -176,6 +176,12 @@ footer {
 
   .products_area{
     font-size: 70px;
+    margin-top: 30px;
+    text-align: center;
+    font-weight: bold;
+  }
+  .products_brand{
+    font-size: 40px;
     margin-top: 30px;
     text-align: center;
     font-weight: bold;
@@ -219,7 +225,7 @@ footer {
 
 #searchBar {
   margin-top: 20px;
-  width: 400px; /* Adjust width as needed */
+  width: 800px; /* Adjust width as needed */
   padding: 10px;
   font-size: 16px;
   border: 1px solid #ccc;

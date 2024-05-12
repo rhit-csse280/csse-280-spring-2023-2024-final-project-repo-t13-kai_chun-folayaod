@@ -45,11 +45,14 @@ rhit.ListPageController = class {
 			window.location.href = "/orderDescription.html";
 			rhit.pageUrl = "/orderDescription.html";
 		});
-		// document.querySelector("#submitAddPhoto").addEventListener("click", (event) => {
-		// 	const imageURL = document.querySelector("#inputImageURL").value;
-		// 	const caption = document.querySelector("#inputCaption").value;
-		// 	rhit.photoBucketManager.addPhoto(imageURL, caption);
-		// });
+		console.log(document.querySelector("#confirmAddToCart"));
+		document.querySelector("#confirmAddToCart").addEventListener("click", (event) => {
+			// const imageURL = document.querySelector("").value;
+			// const caption = document.querySelector("#inputCaption").value;
+			// rhit.photoBucketManager.addPhoto(imageURL, caption);
+			
+			console.log("1111");
+		});
 
 		$("#addPhotoDialog").on("show.bs.modal", (event) => {
 			document.querySelector("#inputImageURL").value = "";
@@ -306,7 +309,10 @@ function searchItems(value) {
     const keywordToSection = {
         'rackets': 'rackets',
         'shoes': 'shoes',
-        'bags': 'bags'
+        'bags': 'bags',
+		'tennis bag':'tennis bag',
+		'yonex tennis bag':'yonex tennis bag',
+		'head tennis bag': 'head tennis bag'
     };
 
     // Find the section ID based on the search term

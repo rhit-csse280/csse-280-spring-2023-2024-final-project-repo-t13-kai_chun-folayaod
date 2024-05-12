@@ -8,7 +8,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
   <link rel="stylesheet" href="styles/bootstrap-material-design.min.css">
   <link rel="stylesheet" href="styles/main.css">
-  <title>Main Page</title>
+  <link rel="icon" type="image/png" href="./Photos/Ws-sport-logo.png">
+  <title>Ws Sports Shop</title>
 </head>
 
 <body>
@@ -41,11 +42,10 @@
    
     <!-- Search bar -->
     <div class="search-container">
-      <input type="text" id="searchBar" placeholder="Search for items..." onkeyup="searchItems(this.value)">
-
+      <input type="text" id="searchBar" placeholder="Search for items by (name of brand) (type of product) EX: head tennis bag" onkeyup="searchItems(this.value)">
     </div>
 
-    <h1 id="rackets" class="products_area">Racket</h1>
+    <h1 id="rackets" class="products_area">Rackets</h1>
     <!-- All the items  -->
     <div class="product-container">
       <!-- The first row Tennis Racket -->
@@ -120,10 +120,10 @@
 
 
 
-      <h1 id="bags" class="products_area">Bags</h1>
+      <h1 id="tennis bag" class="products_area">Tennis Bags</h1>
       <!-- The third row bags -->
-
-
+      <!-- Yonex -->
+      <h4 id="yonex tennis bag" class="products_brand">Yonex</h4>
       <div class="product-container">
       <div class="product-card">
         <img src="./Photos/Yonex_Black_Bag.jpg" alt="ASICS Shoes">
@@ -135,6 +135,40 @@
       
       <div class="product-card">
         <img src="./Photos/Yonex_Purple_Bag.jpg" alt="ASICS Shoes">
+        <h3>ASICS Shoes</h3>
+        <p>BEST SELLER</p>
+        <p class="price">$100.00</p>
+        <button data-toggle="modal" data-target="#confirmationModal" type="button" class="add-to-cart-btn">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="./Photos/Yonex_Red_Bag.jpg" alt="ASICS Shoes">
+        <h3>ASICS Shoes</h3>
+        <p>BEST SELLER</p>
+        <p class="price">$100.00</p>
+        <button data-toggle="modal" data-target="#confirmationModal" type="button" class="add-to-cart-btn">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="./Photos/Yonex_Green_Bag.png" alt="ASICS Shoes">
+        <h3>ASICS Shoes</h3>
+        <p>BEST SELLER</p>
+        <p class="price">$100.00</p>
+        <button  data-toggle="modal" data-target="#confirmationModal" type="button" class="add-to-cart-btn">Add to Cart</button>
+      </div>
+</div>
+
+      <!-- Head -->
+      <h4 id="head tennis bag" class="products_brand">Head</h4>
+      <div class="product-container">
+      <div class="product-card">
+        <img src="./Photos/Head_Gray_Bag.jpg" alt="ASICS Shoes">
+        <h3>ASICS Shoes</h3>
+        <p>BEST SELLER</p>
+        <p class="price">$100.00</p>
+        <button data-toggle="modal" data-target="#confirmationModal" type="button" class="add-to-cart-btn">Add to Cart</button>
+      </div>
+      
+      <div class="product-card">
+        <img src="./Photos/Head_Green_Bag.png" alt="ASICS Shoes">
         <h3>ASICS Shoes</h3>
         <p>BEST SELLER</p>
         <p class="price">$100.00</p>
@@ -155,7 +189,44 @@
         <button  data-toggle="modal" data-target="#confirmationModal" type="button" class="add-to-cart-btn">Add to Cart</button>
       </div>
     </div>
-    
+    </div>
+
+
+
+    <h1 id="shorts" class="products_area">Ws Sports Shorts</h1>
+    <!-- The four rows shorts -->
+    <div class="product-container">
+      <div class="product-card">
+        <img src="./Photos/Short_WhiteBlue.jpg" alt="ASICS Shoes">
+        <h3>ASICS Shoes</h3>
+        <p>BEST SELLER</p>
+        <p class="price">$100.00</p>
+        <button data-toggle="modal" data-target="#confirmationModal" type="button" class="add-to-cart-btn">Add to Cart</button>
+      </div>
+      
+      <div class="product-card">
+        <img src="./Photos/Short_Purple.jpg" alt="ASICS Shoes">
+        <h3>ASICS Shoes</h3>
+        <p>BEST SELLER</p>
+        <p class="price">$100.00</p>
+        <button data-toggle="modal" data-target="#confirmationModal" type="button" class="add-to-cart-btn">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="./Photos/Short_Green.jpg" alt="ASICS Shoes">
+        <h3>ASICS Shoes</h3>
+        <p>BEST SELLER</p>
+        <p class="price">$100.00</p>
+        <button data-toggle="modal" data-target="#confirmationModal" type="button" class="add-to-cart-btn">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <img src="./Photos/Short_Black.jpg" alt="ASICS Shoes">
+        <h3>ASICS Shoes</h3>
+        <p>BEST SELLER</p>
+        <p class="price">$100.00</p>
+        <button  data-toggle="modal" data-target="#confirmationModal" type="button" class="add-to-cart-btn">Add to Cart</button>
+      </div>
+    </div>
+
     <!-- This is the dialog to ask the user if they really want to add the product to the cart -->
     <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
@@ -168,7 +239,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" id="confirmAddToCart">Add to Cart</button>
+            <button type="button" class="btn btn-primary" id="confirmAddToCart" data-dismiss="modal">Add to Cart</button>
           </div>
         </div>
       </div>
