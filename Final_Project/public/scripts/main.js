@@ -237,6 +237,8 @@ rhit.SinglePhotoManager = class {
 rhit.AuthManager = class {
 	constructor() {
 		this.user = null;
+		// this.name = "";
+		// this.photoUrl = "";
 		console.log("Auth Manager initialized");
 	}
 	startListening(changeListener) {
@@ -255,6 +257,12 @@ rhit.AuthManager = class {
 	}
 	get uid() {
 		return this.user.uid;
+	}
+	get name(){
+		return this.name;
+	}
+	get photoUrl(){
+		return this.photoUrl;
 	}
 }
 
@@ -338,7 +346,9 @@ rhit.FbUserManager = class {
 		console.log("Create a user manager");
 	}
 
-	addNewUserMaybe(uid, name, photoUrl){}
+	addNewUserMaybe(uid, name, photoUrl){
+
+	}
 	beginListening(uid, changeListener){}
 	stopListening(){
 		this._unsubscribe();
@@ -380,13 +390,47 @@ function searchItems(value) {
 	});
 }
 
+rhit.createUserObjectIfNeeded = function(){
+	return new Promise((resolve, reject) => {
+		
+
+		//check if a User might be new
+		if(!rhit.authManager.isSignedIn){
+			resolve();
+			return;
+		}
+		if(!document.querySelector("#loginPage")){
+			resolve();
+			return;
+		}
+		//call add useNewUserMaybe
+
+		// rhit.fbUserManager.addNewUserMaybe(
+		// 	rhit.authManager.uid,
+		// 	rhit.authManager.name,
+		// 	rhit.authManager.photoUrl
+		// ).then(() => {
+		// 	resolve();
+		// });
+		resolve();
+		console.log("Check");
+	});
+
+}
+
 
 rhit.main = function () {
 	rhit.authManager = new rhit.AuthManager();
 	rhit.fbUserManager = new rhit.FbUserManager();
 	rhit.authManager.startListening(() => {
-		rhit.checkForRedirects();
+console.log("isSignedIn = ", rhit.authManager.isSignedIn);
+
+		//Check if a new user is needed
+		rhit.createUserObjectIfNeeded().then(() => {
+			rhit.checkForRedirects();
 		rhit.initializePage();
+		});
+
 	});
 };
 
