@@ -3,9 +3,18 @@ var rhit = rhit || {};
 rhit.COLLECTION_PHOTOS = "Photos";
 rhit.KEY_IMAGE_URL = "imageURL";
 rhit.KEY_CAPTION = "caption";
+
+
+rhit.FB_COLLECTION_USERS = "Users";
+rhit.FB_KEY_NAME = "name";
+rhit.FB_KEY_PHOTO_URL = "photoUrl";
+
 rhit.photoBucketManager = null;
 rhit.singlePhotoManager = null;
 rhit.authManager = null;
+rhit.fbUserManager = null;
+
+
 rhit.pageUrl = "/mainpage.html";
 function convertHtmlToElement(html) {
 	var template = document.createElement('template');
@@ -19,7 +28,7 @@ rhit.ListPageController = class {
 
 		document.querySelectorAll(".add-to-cart-btn").forEach((button) => {
 			button.addEventListener("click", (event) => {
-				
+
 				console.log("try");
 				const imageURL = document.querySelector("#inputImageURL").value;
 				const caption = "try";
@@ -29,12 +38,12 @@ rhit.ListPageController = class {
 
 			});
 		});
-	
+
 
 		document.querySelector("#menuSignOut").addEventListener("click", (event) => {
 			rhit.authManager.signOut();
 		});
-		document.querySelector("#placeAnOrder").addEventListener("click",(event)=>{
+		document.querySelector("#placeAnOrder").addEventListener("click", (event) => {
 			window.location.href = "/orderDescription.html";
 			rhit.pageUrl = "/orderDescription.html";
 		});
@@ -43,7 +52,7 @@ rhit.ListPageController = class {
 			// const imageURL = document.querySelector("").value;
 			// const caption = document.querySelector("#inputCaption").value;
 			// rhit.photoBucketManager.addPhoto(imageURL, caption);
-			
+
 			console.log("1111");
 		});
 
@@ -98,21 +107,21 @@ rhit.PhotoBucketManager = class {
 		this.dbRef = firebase.firestore().collection(rhit.COLLECTION_PHOTOS);
 		this.unsubscribe = null;
 	}
-	addPhoto(imageURL, caption){
+	addPhoto(imageURL, caption) {
 		this.dbRef.add({
 			[rhit.KEY_IMAGE_URL]: imageURL,
 			[rhit.KEY_CAPTION]: caption,
 			[rhit.KEY_LAST_UPDATED]: firebase.firestore.Timestamp.now(),
 			[rhit.KEY_AUTHOR]: rhit.authManager.uid,
 		})
-		.then(docRef => {
-			console.log("Document written with ID: ", docRef.id);
-		})
-		.catch(error => {
-			console.error("Error adding document: ", error);
-		});
+			.then(docRef => {
+				console.log("Document written with ID: ", docRef.id);
+			})
+			.catch(error => {
+				console.error("Error adding document: ", error);
+			});
 	}
-	startListening(changeListener){
+	startListening(changeListener) {
 		let query = this.dbRef.orderBy(rhit.KEY_LAST_UPDATED, "desc").limit(50);
 		if (this.userId) {
 			query = query.where(rhit.KEY_AUTHOR, "==", this.userId);
@@ -123,13 +132,13 @@ rhit.PhotoBucketManager = class {
 			changeListener();
 		});
 	}
-	stopListening(){
+	stopListening() {
 		this.unsubscribe();
 	}
-	get numberOfPhotos(){
+	get numberOfPhotos() {
 		return this.documentSnapshots.length;
 	}
-	getPhotoByIndex(index){
+	getPhotoByIndex(index) {
 		const doc = this.documentSnapshots[index];
 		return new rhit.Photo(
 			doc.id,
@@ -195,19 +204,19 @@ rhit.SinglePhotoManager = class {
 		});
 	}
 	stopListening() {
-	  this.unsubscribe();
+		this.unsubscribe();
 	}
 	updateCaption(caption) {
 		this.dbRef.update({
 			[rhit.KEY_CAPTION]: caption,
 			[rhit.KEY_LAST_UPDATED]: firebase.firestore.Timestamp.now(),
 		})
-		.then(() => {
-			console.log("Document successfully updated");
-		})
-		.catch(error => {
-			console.error("Error updating document: ", error);
-		});
+			.then(() => {
+				console.log("Document successfully updated");
+			})
+			.catch(error => {
+				console.error("Error updating document: ", error);
+			});
 	}
 	deletePhoto() {
 		return this.dbRef.delete();
@@ -259,13 +268,13 @@ rhit.checkForRedirects = function () {
 };
 
 rhit.initializePage = function () {
-	if(document.querySelector("#listPage")) {
+	if (document.querySelector("#listPage")) {
 		const urlParams = new URLSearchParams(window.location.search);
 		const userId = urlParams.get("uid");
 		rhit.photoBucketManager = new rhit.PhotoBucketManager(userId);
 		new rhit.ListPageController();
 	}
-	if(document.querySelector("#detailPage")) {
+	if (document.querySelector("#detailPage")) {
 		const queryString = window.location.search;
 		const urlParams = new URLSearchParams(queryString);
 		const photoId = urlParams.get("id");
@@ -275,51 +284,106 @@ rhit.initializePage = function () {
 		rhit.singlePhotoManager = new rhit.SinglePhotoManager(photoId);
 		new rhit.PhotoPageController();
 	}
-	if(document.querySelector("#loginPage")) {
+	if (document.querySelector("#loginPage")) {
 		rhit.startFirebaseUI();
-		new rhit.LoginPageController();
+		
 	}
+	console.log("Hello");
+	if (document.querySelector("#profilePage")) {
+		console.log("You are on the profile page.");
+		new rhit.ProfilePageController();
+	}
+
 };
+
+
+rhit.LoginPageController = class {
+	constructor() {
+		rhit.fbAuthManager.startFirebaseAuthUi();
+	}
+}
 
 rhit.startFirebaseUI = function () {
 	var uiConfig = {
-        signInSuccessUrl: '/mainpage.html',
-        signInOptions: [
-          firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-          firebase.auth.EmailAuthProvider.PROVIDER_ID,
-          firebase.auth.PhoneAuthProvider.PROVIDER_ID,
-          firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
-        ],
-      };
-      const ui = new firebaseui.auth.AuthUI(firebase.auth());
-      ui.start('#firebaseui-auth-container', uiConfig);
+		signInSuccessUrl: '/mainpage.html',
+		signInOptions: [
+			firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+			firebase.auth.EmailAuthProvider.PROVIDER_ID,
+			firebase.auth.PhoneAuthProvider.PROVIDER_ID,
+			firebaseui.auth.AnonymousAuthProvider.PROVIDER_ID
+		],
+	};
+	const ui = new firebaseui.auth.AuthUI(firebase.auth());
+	ui.start('#firebaseui-auth-container', uiConfig);
 }
 
+
+rhit.ProfilePageController = class {
+	constructor() {
+		console.log("Created Profile page controller");
+	}
+
+	updateView() {
+
+	}
+
+}
+
+
+rhit.FbUserManager = class {
+
+	constructor() {
+		this._collectionRef = firebase.firestore().collection(rhit.FB_COLLECTION_USERS);
+		this._document = null;
+		console.log("Create a user manager");
+	}
+
+	addNewUserMaybe(uid, name, photoUrl){}
+	beginListening(uid, changeListener){}
+	stopListening(){
+		this._unsubscribe();
+	}
+	updatePhotoUrl(photoUrl){}
+	updateName(name){}
+	get name(){
+		return this._document.get(rhit.FB_KEY_NAME);
+	}
+
+	get photoUrl(){
+		return this._document.get(rhit.FB_KEY_PHOTO_URL);
+	}
+
+}
+
+
+
+
 function searchItems(value) {
-    const searchTerm = value.toLowerCase().trim();
+	const searchTerm = value.toLowerCase().trim();
 
-    // Define mappings from keywords to element IDs
-    const keywordToSection = {
-        'rackets': 'rackets',
-        'shoes': 'shoes',
-        'bags': 'bags',
-		'tennis bag':'tennis bag',
-		'yonex tennis bag':'yonex tennis bag',
+	// Define mappings from keywords to element IDs
+	const keywordToSection = {
+		'rackets': 'rackets',
+		'shoes': 'shoes',
+		'bags': 'bags',
+		'tennis bag': 'tennis bag',
+		'yonex tennis bag': 'yonex tennis bag',
 		'head tennis bag': 'head tennis bag'
-    };
+	};
 
-    // Find the section ID based on the search term
-    Object.keys(keywordToSection).forEach(key => {
-        if (searchTerm.includes(key)) {
-            const sectionId = keywordToSection[key];
-            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
-        }
-    });
+	// Find the section ID based on the search term
+	Object.keys(keywordToSection).forEach(key => {
+		if (searchTerm.includes(key)) {
+			const sectionId = keywordToSection[key];
+			document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+		}
+	});
 }
 
 
 rhit.main = function () {
 	rhit.authManager = new rhit.AuthManager();
+	rhit.fbUserManager = new rhit.FbUserManager();
 	rhit.authManager.startListening(() => {
 		rhit.checkForRedirects();
 		rhit.initializePage();
