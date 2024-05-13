@@ -316,7 +316,9 @@ footer {
   }
   
   footer {
-    padding: 10px 0; /* Less padding to save space */
+    position: fixed;
+
+    padding: 10px; /* Less padding to save space */
     font-size: 14px; /* Smaller text if necessary */
   }
   
@@ -348,13 +350,7 @@ footer {
     column-count: 3;
     column-gap: 5px;
   }
-  
-  @media (min-width: 992px) {
-    #columns {
-        column-count: 4;
-        column-gap: 10px;
-    }
-  }
+
   
   .pin {
     display: inline-block;
