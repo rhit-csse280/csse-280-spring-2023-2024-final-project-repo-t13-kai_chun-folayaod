@@ -218,6 +218,7 @@ footer {
 
 /* Search bar */
 .search-container {
+  
   margin-top: 60px;
   display: flex;
   justify-content: center;
@@ -232,6 +233,7 @@ footer {
   font-size: 16px;
   border-radius: 25px;
   border: 6px solid black;
+
 }
 
 
@@ -264,4 +266,39 @@ footer {
   padding: 10px;
   text-align: center;
 
+}
+
+
+/* Make the page responsive so it looks good on the phone */
+
+
+
+@media (max-width: 768px) {
+  #columns {
+    column-count: 2; /* Fewer columns on smaller screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .product-container {
+    grid-template-columns: repeat(2, 1fr); /* Two products per row on mobile */
+  }
+}
+@media (max-width: 768px) {
+  #searchBar {
+    width: calc(100% - 40px); /* Full width minus padding */
+    padding: 8px; /* Slightly smaller padding */
+  }
+}
+@media (max-width: 768px) {
+  .add-to-cart-btn {
+    width: 100%; /* Full-width buttons on mobile */
+    padding: 15px 0; /* Larger touch area */
+  }
+}
+@media (max-width: 768px) {
+  .purchaseDes-Container {
+    padding: 20px; /* More padding for better readability */
+    height: auto; /* Adjust height dynamically */
+  }
 }
