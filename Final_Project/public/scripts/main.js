@@ -10,6 +10,7 @@ rhit.FB_KEY_LAST_UPDATED = "LastTouched";
 rhit.FB_KEY_PRODUCT_NAME = "name";
 rhit.FB_KEY_PHOTO_URL = "PhotoUrl";
 rhit.FB_KEY_PRICE = "price";
+rhit.FB_KEY_AUTHOR = "author";
 
 
 // rhit.FB_KEY_IMAGE_URL = "imageURL";
@@ -31,7 +32,7 @@ function convertHtmlToElement(html) {
 	return template.content.firstChild;
 }
 
-rhit.ListPageController = class {
+rhit.MainpageController = class {
 	constructor() {
 		document.querySelectorAll(".add-to-cart-btn").forEach((button) => {
 			button.addEventListener("click", (event) => {
@@ -61,6 +62,7 @@ rhit.ListPageController = class {
 		console.log("Updating the photo list on the page");
 
 		const newPhotoList = convertHtmlToElement('<div id="columns"></div>');
+		console.log(rhit.photoBucketManager.numberOfPhotos);
 		for (let i = 0; i < rhit.photoBucketManager.numberOfPhotos; i++) {
 			const product = rhit.photoBucketManager.getPhotoByIndex(i);
 			const productCard = this.createProductCard(product);
@@ -104,7 +106,8 @@ rhit.PhotoBucketManager = class {
 			[rhit.FB_KEY_PHOTO_URL]: imageURL,
 			[rhit.FB_KEY_PRODUCT_NAME]: name,
 			[rhit.FB_KEY_LAST_UPDATED]: firebase.firestore.Timestamp.now(),
-			[rhit.FB_KEY_PRICE]: price
+			[rhit.FB_KEY_PRICE]: price,
+			[rhit.FB_KEY_AUTHOR]: rhit.authManager.uid
 		})
 			.then(docRef => {
 				console.log("Document written with ID: ", docRef.id);
@@ -115,8 +118,9 @@ rhit.PhotoBucketManager = class {
 	}
 	startListening(changeListener) {
 		let query = this.dbRef.orderBy(rhit.FB_KEY_LAST_UPDATED , "desc").limit(50);
+		console.log("DDD");
 		if (this.userId) {
-			query = query.where(rhit.KEY_AUTHOR, "==", this.userId);
+			query = query.where(rhit.FB_KEY_AUTHOR, "==", this.userId);
 		}
 		this.unsubscribe = query.onSnapshot(querySnapshot => {
 			console.log("PhotoBucket update");
@@ -268,26 +272,28 @@ rhit.checkForRedirects = function () {
 };
 
 rhit.initializePage = function () {
+	if (document.querySelector("#loginPage")) {
+		console.log("You are on the login page.");
+		rhit.startFirebaseUI();
+		new rhit.LoginPageController();
+	}
 	if (document.querySelector("#mainPage")) {
+		console.log("You are on the main page.");
 		const urlParams = new URLSearchParams(window.location.search);
 		const userId = urlParams.get("uid");
 		console.log(userId);
 		rhit.photoBucketManager = new rhit.PhotoBucketManager(userId);
-		new rhit.ListPageController();
+		new rhit.MainpageController();
 	}
 	if (document.querySelector("#cartPage")) {
-		new rhit.ListPageController();
+		console.log("You are on the cart page.");
+		const urlParams = new URLSearchParams(window.location.search);
+		const userId = urlParams.get("uid");
+		console.log(userId);
+		rhit.photoBucketManager = new rhit.PhotoBucketManager(userId);
+		new rhit.MainpageController();
 		// new rhit.PhotoPageController();
 	}
-	if (document.querySelector("#orderPage")) {
-		new rhit.ListPageController();
-		// new rhit.PhotoPageController();
-	}
-	if (document.querySelector("#loginPage")) {
-		rhit.startFirebaseUI();
-
-	}
-	console.log("Hello");
 	if (document.querySelector("#profilePage")) {
 		console.log("You are on the profile page.");
 		new rhit.ProfilePageController();
@@ -298,7 +304,7 @@ rhit.initializePage = function () {
 
 rhit.LoginPageController = class {
 	constructor() {
-		rhit.fbAuthManager.startFirebaseAuthUi();
+		// rhit.authManager.startFirebaseAuthUi();
 	}
 }
 
