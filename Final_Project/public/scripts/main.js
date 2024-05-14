@@ -18,7 +18,7 @@ rhit.FB_KEY_AUTHOR = "author";
 // rhit.FB_KEY_NAME = "name";
 // rhit.FB_KEY_PHOTO_URL = "photoUrl";
 
-rhit.photoBucketManager = null;
+rhit.ProductBucketManager = null;
 rhit.singlePhotoManager = null;
 rhit.authManager = null;
 rhit.fbUserManager = null;
@@ -41,7 +41,7 @@ rhit.MainpageController = class {
 				console.log("#special_img_"+buttonId);
 				const imageURL = document.querySelector("#special_img_"+buttonId).src;
 				const name= "try";
-				rhit.photoBucketManager.addPhoto(imageURL, name, 100);
+				rhit.ProductBucketManager.addProduct(imageURL, name, 100);
 			});
 		});
 
@@ -52,31 +52,31 @@ rhit.MainpageController = class {
 		// document.querySelector("#confirmAddToCart").addEventListener("click", (event) => {
 			// const imageURL = document.querySelector("").value;
 			// const caption = document.querySelector("#inputCaption").value;
-			// rhit.photoBucketManager.addPhoto(imageURL, caption);
+			// rhit.ProductBucketManager.addProduct(imageURL, caption);
 		// });
 
-		// rhit.photoBucketManager.startListening(this.updatePhotoList.bind(this));
-		this.updatePhotoList();
+		// rhit.ProductBucketManager.startListening(this.updateProductList.bind(this));
+		this.updateProductList();
 	}
-	updatePhotoList() {
+	updateProductList() {
 		console.log("Updating the photo list on the page");
 
-		const newPhotoList = convertHtmlToElement('<div id="columns"></div>');
-		console.log(rhit.photoBucketManager.numberOfPhotos);
-		for (let i = 0; i < rhit.photoBucketManager.numberOfPhotos; i++) {
-			const product = rhit.photoBucketManager.getPhotoByIndex(i);
+		const newProductList = convertHtmlToElement('<div id="columns"></div>');
+		console.log(rhit.ProductBucketManager.numberOfProducts);
+		for (let i = 0; i < rhit.ProductBucketManager.numberOfProducts; i++) {
+			const product = rhit.ProductBucketManager.getProductByIndex(i);
 			const productCard = this.createProductCard(product);
 
 			productCard.onclick = () => {
 				window.location.href = `/cart.html?id=${product.id}`;
 			}
 
-			newPhotoList.appendChild(productCard);
+			newProductList.appendChild(productCard);
 		}
 		// const oldPhotoList = document.querySelector("#columns");
 		// oldPhotoList.removeAttribute("id");
 		// oldPhotoList.hidden = true;
-		// oldPhotoList.parentElement.appendChild(newPhotoList);
+		// oldPhotoList.parentElement.appendChild(newProductList);
 	}
 	createProductCard(product) {
 		return convertHtmlToElement(`<div class="pin" id="${product.id}">
@@ -94,14 +94,14 @@ rhit.Product = class {
 	}
 }
 
-rhit.PhotoBucketManager = class {
+rhit.ProductBucketManager = class {
 	constructor(userId) {
 		this.userId = userId;
 		this.documentSnapshots = [];
 		this.dbRef = firebase.firestore().collection(rhit.FB_COLLECTION_PRODUCTS);
 		this.unsubscribe = null;
 	}
-	addPhoto(imageURL, name, price) {
+	addProduct(imageURL, name, price) {
 		this.dbRef.add({
 			[rhit.FB_KEY_PHOTO_URL]: imageURL,
 			[rhit.FB_KEY_PRODUCT_NAME]: name,
@@ -123,7 +123,7 @@ rhit.PhotoBucketManager = class {
 			query = query.where(rhit.FB_KEY_AUTHOR, "==", this.userId);
 		}
 		this.unsubscribe = query.onSnapshot(querySnapshot => {
-			console.log("PhotoBucket update");
+			console.log("ProductBucket update");
 			this.documentSnapshots = querySnapshot.docs;
 			changeListener();
 		});
@@ -131,19 +131,19 @@ rhit.PhotoBucketManager = class {
 	stopListening() {
 		this.unsubscribe();
 	}
-	get numberOfPhotos() {
+	get numberOfProducts() {
 		return this.documentSnapshots.length;
 	}
-	getPhotoByIndex(index) {
+	getProductByIndex(index) {
 		const doc = this.documentSnapshots[index];
-		return new rhit.Photo(
+		return new rhit.Product(
 			doc.id,
 			doc.get(rhit.FB_KEY_PHOTO_URL),
 			doc.get(rhit.FB_KEY_PRODUCT_NAME));
 	}
 }
 
-rhit.PhotoPageController = class {
+rhit.ProductPageController = class {
 	constructor() {
 		document.querySelector("#menuSignOut").addEventListener("click", () => {
 			rhit.authManager.signOut();
@@ -279,10 +279,9 @@ rhit.initializePage = function () {
 	}
 	if (document.querySelector("#mainPage")) {
 		console.log("You are on the main page.");
-		const urlParams = new URLSearchParams(window.location.search);
-		const userId = urlParams.get("uid");
+		const userId = rhit.authManager.uid;
 		console.log(userId);
-		rhit.photoBucketManager = new rhit.PhotoBucketManager(userId);
+		rhit.ProductBucketManager = new rhit.ProductBucketManager(userId);
 		new rhit.MainpageController();
 	}
 	if (document.querySelector("#cartPage")) {
@@ -290,9 +289,9 @@ rhit.initializePage = function () {
 		const urlParams = new URLSearchParams(window.location.search);
 		const userId = urlParams.get("uid");
 		console.log(userId);
-		rhit.photoBucketManager = new rhit.PhotoBucketManager(userId);
+		rhit.ProductBucketManager = new rhit.ProductBucketManager(userId);
 		new rhit.MainpageController();
-		// new rhit.PhotoPageController();
+		// new rhit.ProductPageController();
 	}
 	if (document.querySelector("#profilePage")) {
 		console.log("You are on the profile page.");
