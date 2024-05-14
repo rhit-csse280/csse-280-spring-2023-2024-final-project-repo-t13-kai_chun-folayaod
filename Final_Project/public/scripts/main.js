@@ -48,46 +48,47 @@ rhit.ListPageController = class {
 			rhit.authManager.signOut();
 		});
 
-		document.querySelector("#confirmAddToCart").addEventListener("click", (event) => {
+		// document.querySelector("#confirmAddToCart").addEventListener("click", (event) => {
 			// const imageURL = document.querySelector("").value;
 			// const caption = document.querySelector("#inputCaption").value;
 			// rhit.photoBucketManager.addPhoto(imageURL, caption);
-		});
+		// });
 
-		rhit.photoBucketManager.startListening(this.updatePhotoList.bind(this));
+		// rhit.photoBucketManager.startListening(this.updatePhotoList.bind(this));
+		this.updatePhotoList();
 	}
 	updatePhotoList() {
 		console.log("Updating the photo list on the page");
 
 		const newPhotoList = convertHtmlToElement('<div id="columns"></div>');
 		for (let i = 0; i < rhit.photoBucketManager.numberOfPhotos; i++) {
-			const photo = rhit.photoBucketManager.getPhotoByIndex(i);
-			const photoCard = this.createPhotoCard(photo);
+			const product = rhit.photoBucketManager.getPhotoByIndex(i);
+			const productCard = this.createProductCard(product);
 
-			photoCard.onclick = () => {
-				window.location.href = `/cart.html?id=${photo.id}`;
+			productCard.onclick = () => {
+				window.location.href = `/cart.html?id=${product.id}`;
 			}
 
-			newPhotoList.appendChild(photoCard);
+			newPhotoList.appendChild(productCard);
 		}
 		// const oldPhotoList = document.querySelector("#columns");
 		// oldPhotoList.removeAttribute("id");
 		// oldPhotoList.hidden = true;
 		// oldPhotoList.parentElement.appendChild(newPhotoList);
 	}
-	createPhotoCard(photo) {
-		return convertHtmlToElement(`<div class="pin" id="${photo.id}">
-        <img src="${photo.imageURL}" alt="${photo.caption}">
-        <p class="caption">${photo.caption}</p>
+	createProductCard(product) {
+		return convertHtmlToElement(`<div class="pin" id="${product.id}">
+        <img src="${product.photoURL}" alt="${product.name}">
+        <p class="caption">${product.name}</p>
       </div>`);
 	}
 }
 
-rhit.Photo = class {
-	constructor(id, imageURL, caption) {
+rhit.Product = class {
+	constructor(id, photoUrl, name) {
 		this.id = id;
-		this.imageURL = imageURL;
-		this.caption = caption;
+		this.photoUrl = photoUrl;
+		this.name= name;
 	}
 }
 
@@ -270,6 +271,7 @@ rhit.initializePage = function () {
 	if (document.querySelector("#mainPage")) {
 		const urlParams = new URLSearchParams(window.location.search);
 		const userId = urlParams.get("uid");
+		console.log(userId);
 		rhit.photoBucketManager = new rhit.PhotoBucketManager(userId);
 		new rhit.ListPageController();
 	}
