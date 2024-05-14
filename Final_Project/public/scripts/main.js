@@ -36,7 +36,7 @@ rhit.ListPageController = class {
 		document.querySelectorAll(".add-to-cart-btn").forEach((button) => {
 			button.addEventListener("click", (event) => {
 				console.log("try");
-				const imageURL = "./Photos/1041A375_101_SR_RT_GLB.webp";
+				const imageURL = document.querySelector("#special_img").src;
 				const name= "try";
 				rhit.photoBucketManager.addPhoto(imageURL, name, 100);
 			});
@@ -101,12 +101,12 @@ rhit.PhotoBucketManager = class {
 	constructor(userId) {
 		this.userId = userId;
 		this.documentSnapshots = [];
-		this.dbRef = firebase.firestore().collection(rhit.FB_COLLECTION_PHOTOS);
+		this.dbRef = firebase.firestore().collection(rhit.FB_COLLECTION_PRODUCTS);
 		this.unsubscribe = null;
 	}
 	addPhoto(imageURL, name, price) {
 		this.dbRef.add({
-			[rhit.FB_KEY_IMAGE_URL]: imageURL,
+			[rhit.FB_KEY_PHOTO_URL]: imageURL,
 			[rhit.FB_KEY_PRODUCT_NAME]: name,
 			[rhit.FB_KEY_PRICE]: price
 		})
@@ -278,15 +278,13 @@ rhit.initializePage = function () {
 		rhit.photoBucketManager = new rhit.PhotoBucketManager(userId);
 		new rhit.ListPageController();
 	}
-	if (document.querySelector("#detailPage")) {
-		const queryString = window.location.search;
-		const urlParams = new URLSearchParams(queryString);
-		const photoId = urlParams.get("id");
-		if (!photoId) {
-			window.location.href = "/"
-		}
-		rhit.singlePhotoManager = new rhit.SinglePhotoManager(photoId);
-		new rhit.PhotoPageController();
+	if (document.querySelector("#cartPage")) {
+		new rhit.ListPageController();
+		// new rhit.PhotoPageController();
+	}
+	if (document.querySelector("#orderPage")) {
+		new rhit.ListPageController();
+		// new rhit.PhotoPageController();
 	}
 	if (document.querySelector("#loginPage")) {
 		rhit.startFirebaseUI();
