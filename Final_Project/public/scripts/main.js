@@ -6,7 +6,7 @@ rhit.FB_COLLECTION_PRODUCTS = "Products";
 rhit.FB_COLLECTION_USERS = "User";
 
 
-
+rhit.FB_KEY_LAST_UPDATED = "LastTouched";
 rhit.FB_KEY_PRODUCT_NAME = "name";
 rhit.FB_KEY_PHOTO_URL = "PhotoUrl";
 rhit.FB_KEY_PRICE = "price";
@@ -35,8 +35,10 @@ rhit.ListPageController = class {
 	constructor() {
 		document.querySelectorAll(".add-to-cart-btn").forEach((button) => {
 			button.addEventListener("click", (event) => {
-				console.log("try");
-				const imageURL = document.querySelector("#special_img").src;
+				let buttonId = button.id;
+				buttonId = buttonId.split('-')[4] // ['add','to','cart','btn', 'number']
+				console.log("#special_img_"+buttonId);
+				const imageURL = document.querySelector("#special_img_"+buttonId).src;
 				const name= "try";
 				rhit.photoBucketManager.addPhoto(imageURL, name, 100);
 			});
@@ -50,17 +52,9 @@ rhit.ListPageController = class {
 			// const imageURL = document.querySelector("").value;
 			// const caption = document.querySelector("#inputCaption").value;
 			// rhit.photoBucketManager.addPhoto(imageURL, caption);
-			console.log("1111");
 		});
 
-		// $("#addPhotoDialog").on("show.bs.modal", (event) => {
-		// 	document.querySelector("#inputImageURL").value = "";
-		// 	document.querySelector("#inputCaption").value = "";
-		// });
-		// $("#addPhotoDialog").on("shown.bs.modal", (event) => {
-		// 	document.querySelector("#inputImageURL").focus();
-		// });
-		// rhit.photoBucketManager.startListening(this.updatePhotoList.bind(this));
+		rhit.photoBucketManager.startListening(this.updatePhotoList.bind(this));
 	}
 	updatePhotoList() {
 		console.log("Updating the photo list on the page");
@@ -76,10 +70,10 @@ rhit.ListPageController = class {
 
 			newPhotoList.appendChild(photoCard);
 		}
-		const oldPhotoList = document.querySelector("#columns");
-		oldPhotoList.removeAttribute("id");
-		oldPhotoList.hidden = true;
-		oldPhotoList.parentElement.appendChild(newPhotoList);
+		// const oldPhotoList = document.querySelector("#columns");
+		// oldPhotoList.removeAttribute("id");
+		// oldPhotoList.hidden = true;
+		// oldPhotoList.parentElement.appendChild(newPhotoList);
 	}
 	createPhotoCard(photo) {
 		return convertHtmlToElement(`<div class="pin" id="${photo.id}">
@@ -108,6 +102,7 @@ rhit.PhotoBucketManager = class {
 		this.dbRef.add({
 			[rhit.FB_KEY_PHOTO_URL]: imageURL,
 			[rhit.FB_KEY_PRODUCT_NAME]: name,
+			[rhit.FB_KEY_LAST_UPDATED]: firebase.firestore.Timestamp.now(),
 			[rhit.FB_KEY_PRICE]: price
 		})
 			.then(docRef => {
@@ -118,7 +113,7 @@ rhit.PhotoBucketManager = class {
 			});
 	}
 	startListening(changeListener) {
-		let query = this.dbRef.orderBy(rhit.KEY_LAST_UPDATED, "desc").limit(50);
+		let query = this.dbRef.orderBy(rhit.FB_KEY_LAST_UPDATED , "desc").limit(50);
 		if (this.userId) {
 			query = query.where(rhit.KEY_AUTHOR, "==", this.userId);
 		}
@@ -138,8 +133,8 @@ rhit.PhotoBucketManager = class {
 		const doc = this.documentSnapshots[index];
 		return new rhit.Photo(
 			doc.id,
-			doc.get(rhit.KEY_IMAGE_URL),
-			doc.get(rhit.KEY_CAPTION));
+			doc.get(rhit.FB_KEY_PHOTO_URL),
+			doc.get(rhit.FB_KEY_PRODUCT_NAME));
 	}
 }
 
