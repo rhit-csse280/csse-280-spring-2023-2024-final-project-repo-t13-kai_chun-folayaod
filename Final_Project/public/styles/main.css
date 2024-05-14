@@ -250,7 +250,11 @@ footer {
 }
 
 .add-to-cart-btn:hover {
-  background-color: #45a049;
+  background-color: gray;
+}
+.add-to-cart-btn:active {
+  transform: translateY(2px);
+  opacity: 0.8;
 }
 
 /* Purchase description page */
@@ -267,7 +271,9 @@ footer {
   text-align: center;
 
 }
-
+#menuSignOut{
+  cursor: pointer;
+}
 
 /* Make the page responsive so it looks good on the phone */
 
@@ -514,9 +520,12 @@ footer {
   }
   
   .add-to-cart-btn:hover {
-    background-color: greenyellow;
+    background-color: gray;
   }
-  
+  .add-to-cart-btn:active {
+    transform: translateY(2px);
+    opacity: 0.8;
+  }
   /* Purchase description page */
   #purchaseDescription{
     color: black;

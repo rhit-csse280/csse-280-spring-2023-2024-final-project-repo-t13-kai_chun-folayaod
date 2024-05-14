@@ -1,13 +1,21 @@
 var rhit = rhit || {};
 
-rhit.COLLECTION_PHOTOS = "Photos";
-rhit.KEY_IMAGE_URL = "imageURL";
-rhit.KEY_CAPTION = "caption";
+rhit.FB_COLLECTION_CART = "Cart";
+rhit.FB_COLLECTION_PHOTOS = "Photos";
+rhit.FB_COLLECTION_PRODUCTS = "Products";
+rhit.FB_COLLECTION_USERS = "User";
 
 
-rhit.FB_COLLECTION_USERS = "Users";
-rhit.FB_KEY_NAME = "name";
-rhit.FB_KEY_PHOTO_URL = "photoUrl";
+
+rhit.FB_KEY_PRODUCT_NAME = "name";
+rhit.FB_KEY_PHOTO_URL = "PhotoUrl";
+rhit.FB_KEY_PRICE = "price";
+
+
+// rhit.FB_KEY_IMAGE_URL = "imageURL";
+// rhit.FB_KEY_CAPTION = "caption";
+// rhit.FB_KEY_NAME = "name";
+// rhit.FB_KEY_PHOTO_URL = "photoUrl";
 
 rhit.photoBucketManager = null;
 rhit.singlePhotoManager = null;
@@ -25,45 +33,34 @@ function convertHtmlToElement(html) {
 
 rhit.ListPageController = class {
 	constructor() {
-
 		document.querySelectorAll(".add-to-cart-btn").forEach((button) => {
 			button.addEventListener("click", (event) => {
-
 				console.log("try");
-				const imageURL = document.querySelector("#inputImageURL").value;
-				const caption = "try";
-				const popUp = document.getElementById("confirmationModal");
-				popUp.style.display = "black";
-				rhit.photoBucketManager.addPhoto(imageURL, caption);
-
+				const imageURL = "./Photos/1041A375_101_SR_RT_GLB.webp";
+				const name= "try";
+				rhit.photoBucketManager.addPhoto(imageURL, name, 100);
 			});
 		});
-
 
 		document.querySelector("#menuSignOut").addEventListener("click", (event) => {
 			rhit.authManager.signOut();
 		});
-		document.querySelector("#placeAnOrder").addEventListener("click", (event) => {
-			window.location.href = "/orderDescription.html";
-			rhit.pageUrl = "/orderDescription.html";
-		});
-		console.log(document.querySelector("#confirmAddToCart"));
+
 		document.querySelector("#confirmAddToCart").addEventListener("click", (event) => {
 			// const imageURL = document.querySelector("").value;
 			// const caption = document.querySelector("#inputCaption").value;
 			// rhit.photoBucketManager.addPhoto(imageURL, caption);
-
 			console.log("1111");
 		});
 
-		$("#addPhotoDialog").on("show.bs.modal", (event) => {
-			document.querySelector("#inputImageURL").value = "";
-			document.querySelector("#inputCaption").value = "";
-		});
-		$("#addPhotoDialog").on("shown.bs.modal", (event) => {
-			document.querySelector("#inputImageURL").focus();
-		});
-		rhit.photoBucketManager.startListening(this.updatePhotoList.bind(this));
+		// $("#addPhotoDialog").on("show.bs.modal", (event) => {
+		// 	document.querySelector("#inputImageURL").value = "";
+		// 	document.querySelector("#inputCaption").value = "";
+		// });
+		// $("#addPhotoDialog").on("shown.bs.modal", (event) => {
+		// 	document.querySelector("#inputImageURL").focus();
+		// });
+		// rhit.photoBucketManager.startListening(this.updatePhotoList.bind(this));
 	}
 	updatePhotoList() {
 		console.log("Updating the photo list on the page");
@@ -104,15 +101,14 @@ rhit.PhotoBucketManager = class {
 	constructor(userId) {
 		this.userId = userId;
 		this.documentSnapshots = [];
-		this.dbRef = firebase.firestore().collection(rhit.COLLECTION_PHOTOS);
+		this.dbRef = firebase.firestore().collection(rhit.FB_COLLECTION_PHOTOS);
 		this.unsubscribe = null;
 	}
-	addPhoto(imageURL, caption) {
+	addPhoto(imageURL, name, price) {
 		this.dbRef.add({
-			[rhit.KEY_IMAGE_URL]: imageURL,
-			[rhit.KEY_CAPTION]: caption,
-			[rhit.KEY_LAST_UPDATED]: firebase.firestore.Timestamp.now(),
-			[rhit.KEY_AUTHOR]: rhit.authManager.uid,
+			[rhit.FB_KEY_IMAGE_URL]: imageURL,
+			[rhit.FB_KEY_PRODUCT_NAME]: name,
+			[rhit.FB_KEY_PRICE]: price
 		})
 			.then(docRef => {
 				console.log("Document written with ID: ", docRef.id);
@@ -186,51 +182,51 @@ rhit.PhotoPageController = class {
 	}
 }
 
-rhit.SinglePhotoManager = class {
-	constructor(photoId) {
-		this.documentSnapshot = {};
-		this.unsubscribe = null;
-		this.dbRef = firebase.firestore().collection(rhit.COLLECTION_PHOTOS).doc(photoId);
-	}
-	startListening(changeListener) {
-		this.unsubscribe = this.dbRef.onSnapshot(doc => {
-			if (doc.exists) {
-				console.log("Document data:", doc.data());
-				this.documentSnapshot = doc;
-				changeListener();
-			} else {
-				console.log("No such document!");
-			}
-		});
-	}
-	stopListening() {
-		this.unsubscribe();
-	}
-	updateCaption(caption) {
-		this.dbRef.update({
-			[rhit.KEY_CAPTION]: caption,
-			[rhit.KEY_LAST_UPDATED]: firebase.firestore.Timestamp.now(),
-		})
-			.then(() => {
-				console.log("Document successfully updated");
-			})
-			.catch(error => {
-				console.error("Error updating document: ", error);
-			});
-	}
-	deletePhoto() {
-		return this.dbRef.delete();
-	}
-	get imageURL() {
-		return this.documentSnapshot.get(rhit.KEY_IMAGE_URL);
-	}
-	get caption() {
-		return this.documentSnapshot.get(rhit.KEY_CAPTION);
-	}
-	get author() {
-		return this.documentSnapshot.get(rhit.KEY_AUTHOR);
-	}
-}
+// rhit.SinglePhotoManager = class {
+// 	constructor(photoId) {
+// 		this.documentSnapshot = {};
+// 		this.unsubscribe = null;
+// 		this.dbRef = firebase.firestore().collection(rhit.COLLECTION_PHOTOS).doc(photoId);
+// 	}
+// 	startListening(changeListener) {
+// 		this.unsubscribe = this.dbRef.onSnapshot(doc => {
+// 			if (doc.exists) {
+// 				console.log("Document data:", doc.data());
+// 				this.documentSnapshot = doc;
+// 				changeListener();
+// 			} else {
+// 				console.log("No such document!");
+// 			}
+// 		});
+// 	}
+// 	stopListening() {
+// 		this.unsubscribe();
+// 	}
+// 	updateCaption(caption) {
+// 		this.dbRef.update({
+// 			[rhit.KEY_CAPTION]: caption,
+// 			[rhit.KEY_LAST_UPDATED]: firebase.firestore.Timestamp.now(),
+// 		})
+// 			.then(() => {
+// 				console.log("Document successfully updated");
+// 			})
+// 			.catch(error => {
+// 				console.error("Error updating document: ", error);
+// 			});
+// 	}
+// 	deletePhoto() {
+// 		return this.dbRef.delete();
+// 	}
+// 	get imageURL() {
+// 		return this.documentSnapshot.get(rhit.KEY_IMAGE_URL);
+// 	}
+// 	get caption() {
+// 		return this.documentSnapshot.get(rhit.KEY_CAPTION);
+// 	}
+// 	get author() {
+// 		return this.documentSnapshot.get(rhit.KEY_AUTHOR);
+// 	}
+// }
 
 
 
@@ -258,17 +254,17 @@ rhit.AuthManager = class {
 	get uid() {
 		return this.user.uid;
 	}
-	get name(){
+	get name() {
 		return this.name;
 	}
-	get photoUrl(){
+	get photoUrl() {
 		return this.photoUrl;
 	}
 }
 
 rhit.checkForRedirects = function () {
 	if (document.querySelector("#loginPage") && rhit.authManager.isSignedIn) {
-		// window.location.href = `${rhit.pageUrl}`;
+		window.location.href = `/mainpage.html`;
 	}
 	if (!document.querySelector("#loginPage") && !rhit.authManager.isSignedIn) {
 		window.location.href = "/";
@@ -276,7 +272,7 @@ rhit.checkForRedirects = function () {
 };
 
 rhit.initializePage = function () {
-	if (document.querySelector("#listPage")) {
+	if (document.querySelector("#mainPage")) {
 		const urlParams = new URLSearchParams(window.location.search);
 		const userId = urlParams.get("uid");
 		rhit.photoBucketManager = new rhit.PhotoBucketManager(userId);
@@ -294,7 +290,7 @@ rhit.initializePage = function () {
 	}
 	if (document.querySelector("#loginPage")) {
 		rhit.startFirebaseUI();
-		
+
 	}
 	console.log("Hello");
 	if (document.querySelector("#profilePage")) {
@@ -346,20 +342,20 @@ rhit.FbUserManager = class {
 		console.log("Create a user manager");
 	}
 
-	addNewUserMaybe(uid, name, photoUrl){
+	addNewUserMaybe(uid, name, photoUrl) {
 
 	}
-	beginListening(uid, changeListener){}
-	stopListening(){
+	beginListening(uid, changeListener) { }
+	stopListening() {
 		this._unsubscribe();
 	}
-	updatePhotoUrl(photoUrl){}
-	updateName(name){}
-	get name(){
+	updatePhotoUrl(photoUrl) { }
+	updateName(name) { }
+	get name() {
 		return this._document.get(rhit.FB_KEY_NAME);
 	}
 
-	get photoUrl(){
+	get photoUrl() {
 		return this._document.get(rhit.FB_KEY_PHOTO_URL);
 	}
 
@@ -390,16 +386,16 @@ function searchItems(value) {
 	});
 }
 
-rhit.createUserObjectIfNeeded = function(){
+rhit.createUserObjectIfNeeded = function () {
 	return new Promise((resolve, reject) => {
-		
+
 
 		//check if a User might be new
-		if(!rhit.authManager.isSignedIn){
+		if (!rhit.authManager.isSignedIn) {
 			resolve();
 			return;
 		}
-		if(!document.querySelector("#loginPage")){
+		if (!document.querySelector("#loginPage")) {
 			resolve();
 			return;
 		}
@@ -423,12 +419,12 @@ rhit.main = function () {
 	rhit.authManager = new rhit.AuthManager();
 	rhit.fbUserManager = new rhit.FbUserManager();
 	rhit.authManager.startListening(() => {
-console.log("isSignedIn = ", rhit.authManager.isSignedIn);
+		console.log("isSignedIn = ", rhit.authManager.isSignedIn);
 
 		//Check if a new user is needed
 		rhit.createUserObjectIfNeeded().then(() => {
 			rhit.checkForRedirects();
-		rhit.initializePage();
+			rhit.initializePage();
 		});
 
 	});
