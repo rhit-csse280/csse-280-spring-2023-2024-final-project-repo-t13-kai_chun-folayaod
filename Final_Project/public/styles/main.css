@@ -275,6 +275,24 @@ footer {
   cursor: pointer;
 }
 
+/* cartPage  */
+#cartItems{
+  height: 200px;
+  width: 150px;
+}
+#cartPhoto{
+  height: 100px;
+  width: 130px;
+}
+#deleteButton{
+  width: 130px;
+  font-size: 10px;
+  font-weight: bold;
+  margin-right:10px ;
+  text-align: center;
+  background-color: gray;
+}
+
 /* Make the page responsive so it looks good on the phone */
 
 @media (max-width: 768px) {

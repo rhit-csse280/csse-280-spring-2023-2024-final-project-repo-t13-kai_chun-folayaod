@@ -170,9 +170,10 @@ rhit.CartManager = class {
 		oldPhotoList.parentElement.appendChild(newProductList);
 	}
 	createProductCard(product) {
-		return convertHtmlToElement(`<div class="pin" id="${product.id}">
-        <img src="${product.photoUrl}" alt="${product.name}">
-        <p class="caption">${product.name}</p>
+		return convertHtmlToElement(`<div class="pin" id="cartItems">
+        <img src="${product.photoUrl}" alt="${product.name}" id="cartPhoto">
+		<button  type="button" class="btn btn-outline-warning text-center" id="deleteButton"> Delete</button>
+        <p class="productName">${product.name}</p>
       </div>`);
 	}
 }
