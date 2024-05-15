@@ -482,7 +482,10 @@ footer {
     font-weight: bold;
     font-size: 1.5em;
   }
-  
+  .product-card:hover {
+    transform: translateY(-5px); /* Lift card */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* Deeper shadow for emphasis */
+}
   
   /* Search bar */
   .search-container {

@@ -18,7 +18,7 @@ rhit.FB_KEY_AUTHOR = "author";
 // rhit.FB_KEY_NAME = "name";
 // rhit.FB_KEY_PHOTO_URL = "photoUrl";
 
-rhit.ProductBucketManager = null;
+rhit.productBucketManager = null;
 rhit.singlePhotoManager = null;
 rhit.authManager = null;
 rhit.fbUserManager = null;
@@ -40,8 +40,9 @@ rhit.MainpageController = class {
 				buttonId = buttonId.split('-')[4] // ['add','to','cart','btn', 'number']
 				console.log("#special_img_"+buttonId);
 				const imageURL = document.querySelector("#special_img_"+buttonId).src;
-				const name= "try";
-				rhit.ProductBucketManager.addProduct(imageURL, name, 100);
+				const name= document.querySelector("#product_name_"+buttonId).textContent;
+				console.log(name);
+				rhit.productBucketManager.addProduct(imageURL, name, 100);
 			});
 		});
 
@@ -52,19 +53,19 @@ rhit.MainpageController = class {
 		// document.querySelector("#confirmAddToCart").addEventListener("click", (event) => {
 			// const imageURL = document.querySelector("").value;
 			// const caption = document.querySelector("#inputCaption").value;
-			// rhit.ProductBucketManager.addProduct(imageURL, caption);
+			// rhit.productBucketManager.addProduct(imageURL, caption);
 		// });
 
-		// rhit.ProductBucketManager.startListening(this.updateProductList.bind(this));
+		// rhit.productBucketManager.startListening(this.updateProductList.bind(this));
 		this.updateProductList();
 	}
 	updateProductList() {
 		console.log("Updating the photo list on the page");
 
 		const newProductList = convertHtmlToElement('<div id="columns"></div>');
-		console.log(rhit.ProductBucketManager.numberOfProducts);
-		for (let i = 0; i < rhit.ProductBucketManager.numberOfProducts; i++) {
-			const product = rhit.ProductBucketManager.getProductByIndex(i);
+		console.log(rhit.productBucketManager.numberOfProducts);
+		for (let i = 0; i < rhit.productBucketManager.numberOfProducts; i++) {
+			const product = rhit.productBucketManager.getProductByIndex(i);
 			const productCard = this.createProductCard(product);
 
 			productCard.onclick = () => {
@@ -80,7 +81,7 @@ rhit.MainpageController = class {
 	}
 	createProductCard(product) {
 		return convertHtmlToElement(`<div class="pin" id="${product.id}">
-        <img src="${product.photoURL}" alt="${product.name}">
+        <img src="${product.photoUrl}" alt="${product.name}">
         <p class="caption">${product.name}</p>
       </div>`);
 	}
@@ -143,88 +144,76 @@ rhit.ProductBucketManager = class {
 	}
 }
 
-rhit.ProductPageController = class {
-	constructor() {
-		document.querySelector("#menuSignOut").addEventListener("click", () => {
-			rhit.authManager.signOut();
-		});
-
-		document.querySelector("#submitEditCaption").addEventListener("click", () => {
-			const caption = document.querySelector("#inputCaption").value;
-			rhit.singlePhotoManager.updateCaption(caption);
-		});
-
-		$("#editPhotoDialog").on("show.bs.modal", () => {
-			document.querySelector("#inputCaption").value = rhit.singlePhotoManager.caption;
-		});
-		$("#editPhotoDialog").on("shown.bs.modal", () => {
-			document.querySelector("#inputCaption").focus();
-		});
-
-		document.querySelector("#submitDeletePhoto").addEventListener("click", () => {
-			rhit.singlePhotoManager.deletePhoto().then(() => {
-				console.log("Photo successfully deleted");
-				window.location.href = "/mainpage.html";
-			}).catch(error => {
-				console.error("Error removing photo: ", error);
-			});
-		});
-
-		rhit.singlePhotoManager.startListening(this.updatePhotoView.bind(this));
+rhit.CartManager = class {
+	constructor(userId) {
+		
+		rhit.productBucketManager.startListening(this.updateProductList.bind(this));
 	}
-	updatePhotoView() {
-		document.querySelector("#photo").src = rhit.singlePhotoManager.imageURL;
-		document.querySelector("#caption").textContent = rhit.singlePhotoManager.caption;
-		if (rhit.singlePhotoManager.author === rhit.authManager.uid) {
-			document.querySelector("#menuEdit").style.display = "flex";
-			document.querySelector("#menuDelete").style.display = "flex";
+	updateProductList() {
+		console.log("Updating the photo list on the page");
+
+		const newProductList = convertHtmlToElement('<div id="columns"></div>');
+		console.log(rhit.productBucketManager.numberOfProducts);
+		for (let i = 0; i < rhit.productBucketManager.numberOfProducts; i++) {
+			const product = rhit.productBucketManager.getProductByIndex(i);
+			const productCard = this.createProductCard(product);
+
+			productCard.onclick = () => {
+				window.location.href = `/cart.html?id=${product.id}`;
+			}
+
+			newProductList.appendChild(productCard);
 		}
+		const oldPhotoList = document.querySelector("#columns");
+		oldPhotoList.removeAttribute("id");
+		oldPhotoList.hidden = true;
+		oldPhotoList.parentElement.appendChild(newProductList);
+	}
+	createProductCard(product) {
+		return convertHtmlToElement(`<div class="pin" id="${product.id}">
+        <img src="${product.photoUrl}" alt="${product.name}">
+        <p class="caption">${product.name}</p>
+      </div>`);
 	}
 }
 
-// rhit.SinglePhotoManager = class {
-// 	constructor(photoId) {
-// 		this.documentSnapshot = {};
-// 		this.unsubscribe = null;
-// 		this.dbRef = firebase.firestore().collection(rhit.COLLECTION_PHOTOS).doc(photoId);
-// 	}
-// 	startListening(changeListener) {
-// 		this.unsubscribe = this.dbRef.onSnapshot(doc => {
-// 			if (doc.exists) {
-// 				console.log("Document data:", doc.data());
-// 				this.documentSnapshot = doc;
-// 				changeListener();
-// 			} else {
-// 				console.log("No such document!");
-// 			}
+
+// rhit.ProductPageController = class {
+// 	constructor() {
+// 		document.querySelector("#menuSignOut").addEventListener("click", () => {
+// 			rhit.authManager.signOut();
 // 		});
-// 	}
-// 	stopListening() {
-// 		this.unsubscribe();
-// 	}
-// 	updateCaption(caption) {
-// 		this.dbRef.update({
-// 			[rhit.KEY_CAPTION]: caption,
-// 			[rhit.KEY_LAST_UPDATED]: firebase.firestore.Timestamp.now(),
-// 		})
-// 			.then(() => {
-// 				console.log("Document successfully updated");
-// 			})
-// 			.catch(error => {
-// 				console.error("Error updating document: ", error);
+
+// 		document.querySelector("#submitEditCaption").addEventListener("click", () => {
+// 			const caption = document.querySelector("#inputCaption").value;
+// 			rhit.singlePhotoManager.updateCaption(caption);
+// 		});
+
+// 		$("#editPhotoDialog").on("show.bs.modal", () => {
+// 			document.querySelector("#inputCaption").value = rhit.singlePhotoManager.caption;
+// 		});
+// 		$("#editPhotoDialog").on("shown.bs.modal", () => {
+// 			document.querySelector("#inputCaption").focus();
+// 		});
+
+// 		document.querySelector("#submitDeletePhoto").addEventListener("click", () => {
+// 			rhit.singlePhotoManager.deletePhoto().then(() => {
+// 				console.log("Photo successfully deleted");
+// 				window.location.href = "/mainpage.html";
+// 			}).catch(error => {
+// 				console.error("Error removing photo: ", error);
 // 			});
+// 		});
+
+// 		rhit.singlePhotoManager.startListening(this.updatePhotoView.bind(this));
 // 	}
-// 	deletePhoto() {
-// 		return this.dbRef.delete();
-// 	}
-// 	get imageURL() {
-// 		return this.documentSnapshot.get(rhit.KEY_IMAGE_URL);
-// 	}
-// 	get caption() {
-// 		return this.documentSnapshot.get(rhit.KEY_CAPTION);
-// 	}
-// 	get author() {
-// 		return this.documentSnapshot.get(rhit.KEY_AUTHOR);
+// 	updatePhotoView() {
+// 		document.querySelector("#photo").src = rhit.singlePhotoManager.imageURL;
+// 		document.querySelector("#caption").textContent = rhit.singlePhotoManager.caption;
+// 		if (rhit.singlePhotoManager.author === rhit.authManager.uid) {
+// 			document.querySelector("#menuEdit").style.display = "flex";
+// 			document.querySelector("#menuDelete").style.display = "flex";
+// 		}
 // 	}
 // }
 
@@ -281,16 +270,16 @@ rhit.initializePage = function () {
 		console.log("You are on the main page.");
 		const userId = rhit.authManager.uid;
 		console.log(userId);
-		rhit.ProductBucketManager = new rhit.ProductBucketManager(userId);
+		rhit.productBucketManager = new rhit.ProductBucketManager(userId);
 		new rhit.MainpageController();
 	}
 	if (document.querySelector("#cartPage")) {
 		console.log("You are on the cart page.");
-		const urlParams = new URLSearchParams(window.location.search);
-		const userId = urlParams.get("uid");
+		const userId = rhit.authManager.uid;
 		console.log(userId);
-		rhit.ProductBucketManager = new rhit.ProductBucketManager(userId);
-		new rhit.MainpageController();
+		rhit.productBucketManager = new rhit.ProductBucketManager(userId);
+		rhit.cartManager = new rhit.CartManager(userId);
+		// new rhit.CartpageController();
 		// new rhit.ProductPageController();
 	}
 	if (document.querySelector("#profilePage")) {
