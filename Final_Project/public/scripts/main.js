@@ -19,7 +19,7 @@ rhit.FB_KEY_AUTHOR = "author";
 // rhit.FB_KEY_PHOTO_URL = "photoUrl";
 
 rhit.productBucketManager = null;
-rhit.singlePhotoManager = null;
+rhit.productManager = null;
 rhit.authManager = null;
 rhit.fbUserManager = null;
 
@@ -38,9 +38,9 @@ rhit.MainpageController = class {
 			button.addEventListener("click", (event) => {
 				let buttonId = button.id;
 				buttonId = buttonId.split('-')[4] // ['add','to','cart','btn', 'number']
-				console.log("#special_img_"+buttonId);
-				const imageURL = document.querySelector("#special_img_"+buttonId).src;
-				const name= document.querySelector("#product_name_"+buttonId).textContent;
+				console.log("#special_img_" + buttonId);
+				const imageURL = document.querySelector("#special_img_" + buttonId).src;
+				const name = document.querySelector("#product_name_" + buttonId).textContent;
 				console.log(name);
 				rhit.productBucketManager.addProduct(imageURL, name, 100);
 			});
@@ -51,9 +51,9 @@ rhit.MainpageController = class {
 		});
 
 		// document.querySelector("#confirmAddToCart").addEventListener("click", (event) => {
-			// const imageURL = document.querySelector("").value;
-			// const caption = document.querySelector("#inputCaption").value;
-			// rhit.productBucketManager.addProduct(imageURL, caption);
+		// const imageURL = document.querySelector("").value;
+		// const caption = document.querySelector("#inputCaption").value;
+		// rhit.productBucketManager.addProduct(imageURL, caption);
 		// });
 
 		// rhit.productBucketManager.startListening(this.updateProductList.bind(this));
@@ -91,7 +91,7 @@ rhit.Product = class {
 	constructor(id, photoUrl, name) {
 		this.id = id;
 		this.photoUrl = photoUrl;
-		this.name= name;
+		this.name = name;
 	}
 }
 
@@ -118,7 +118,7 @@ rhit.ProductBucketManager = class {
 			});
 	}
 	startListening(changeListener) {
-		let query = this.dbRef.orderBy(rhit.FB_KEY_LAST_UPDATED , "desc").limit(50);
+		let query = this.dbRef.orderBy(rhit.FB_KEY_LAST_UPDATED, "desc").limit(50);
 		console.log("DDD");
 		if (this.userId) {
 			query = query.where(rhit.FB_KEY_AUTHOR, "==", this.userId);
@@ -146,7 +146,7 @@ rhit.ProductBucketManager = class {
 
 rhit.CartManager = class {
 	constructor(userId) {
-		
+
 		rhit.productBucketManager.startListening(this.updateProductList.bind(this));
 	}
 	updateProductList() {
@@ -170,55 +170,91 @@ rhit.CartManager = class {
 		oldPhotoList.parentElement.appendChild(newProductList);
 	}
 	createProductCard(product) {
+
 		return convertHtmlToElement(`<div class="pin" id="cartItems">
         <img src="${product.photoUrl}" alt="${product.name}" id="cartPhoto">
-		<button  type="button" class="btn btn-outline-warning text-center" id="deleteButton"> Delete</button>
+		<button  type="button" class="btn btn-outline-warning text-center deleteButton" > Delete</button>
         <p class="productName">${product.name}</p>
       </div>`);
 	}
 }
 
 
-// rhit.ProductPageController = class {
-// 	constructor() {
-// 		document.querySelector("#menuSignOut").addEventListener("click", () => {
-// 			rhit.authManager.signOut();
-// 		});
 
-// 		document.querySelector("#submitEditCaption").addEventListener("click", () => {
-// 			const caption = document.querySelector("#inputCaption").value;
-// 			rhit.singlePhotoManager.updateCaption(caption);
-// 		});
+rhit.ProductPageController = class {
+	constructor() {
+		document.querySelector("#menuSignOut").addEventListener("click", () => {
+			rhit.authManager.signOut();
+		});
 
-// 		$("#editPhotoDialog").on("show.bs.modal", () => {
-// 			document.querySelector("#inputCaption").value = rhit.singlePhotoManager.caption;
-// 		});
-// 		$("#editPhotoDialog").on("shown.bs.modal", () => {
-// 			document.querySelector("#inputCaption").focus();
-// 		});
-
-// 		document.querySelector("#submitDeletePhoto").addEventListener("click", () => {
-// 			rhit.singlePhotoManager.deletePhoto().then(() => {
-// 				console.log("Photo successfully deleted");
-// 				window.location.href = "/mainpage.html";
-// 			}).catch(error => {
-// 				console.error("Error removing photo: ", error);
-// 			});
-// 		});
-
-// 		rhit.singlePhotoManager.startListening(this.updatePhotoView.bind(this));
-// 	}
-// 	updatePhotoView() {
-// 		document.querySelector("#photo").src = rhit.singlePhotoManager.imageURL;
-// 		document.querySelector("#caption").textContent = rhit.singlePhotoManager.caption;
-// 		if (rhit.singlePhotoManager.author === rhit.authManager.uid) {
-// 			document.querySelector("#menuEdit").style.display = "flex";
-// 			document.querySelector("#menuDelete").style.display = "flex";
-// 		}
-// 	}
-// }
+		rhit.productManager.startListening(this.updateProductView.bind(this));
+	}
+	updateProductView() {
+		// document.querySelector("#cardPhoto").src = rhit.productManager.imageUrl;
+		// if (rhit.productManager.author === rhit.authManager.uid) {
+		// 	document.querySelector("#menuEdit").style.display = "flex";
+		// 	document.querySelector("#menuDelete").style.display = "flex";
+		// }
+		const deleteButtons = document.querySelectorAll(".deleteButton");
+		console.log(deleteButtons );
+		for (let i = 0; i < deleteButtons.length; i++) {
+			deleteButtons[i].addEventListener("click", () => {
+				rhit.productManager.deleteProduct().then(() => {
+					console.log("Photo successfully deleted");
+					// window.location.href = "/mainpage.html";
+				}).catch(error => {
+					console.error("Error removing photo: ", error);
+				});
+			});
+		}
+	}
+}
 
 
+rhit.productManager = class {
+	constructor(productId) {
+		this.documentSnapshot = {};
+		this.unsubscribe = null;
+		this.dbRef = firebase.firestore().collection(rhit.FB_COLLECTION_PRODUCTS).doc(productId);
+	}
+	startListening(changeListener) {
+		this.unsubscribe = this.dbRef.onSnapshot(doc => {
+			if (doc.exists) {
+				console.log("Document data:", doc.data());
+				this.documentSnapshot = doc;
+				changeListener();
+			} else {
+				console.log("No such document!");
+			}
+		});
+	}
+	stopListening() {
+		this.unsubscribe();
+	}
+	updateCaption(caption) {
+		this.dbRef.update({
+			[rhit.KEY_LAST_UPDATED]: firebase.firestore.Timestamp.now()
+		})
+			.then(() => {
+				console.log("Document successfully updated");
+			})
+			.catch(error => {
+				console.error("Error updating document: ", error);
+			});
+	}
+	deleteProduct() {
+		return this.dbRef.delete();
+	}
+	get imageURL() {
+		return this.documentSnapshot.get(rhit.FB_KEY_PHOTO_URL);
+	}
+	get caption() {
+		return this.documentSnapshot.get(rhit.KEY_CAPTION);
+	}
+	get author() {
+		return this.documentSnapshot.get(rhit.FB_KEY_AUTHOR);
+	}
+}
 
 rhit.AuthManager = class {
 	constructor() {
@@ -280,8 +316,10 @@ rhit.initializePage = function () {
 		console.log(userId);
 		rhit.productBucketManager = new rhit.ProductBucketManager(userId);
 		rhit.cartManager = new rhit.CartManager(userId);
+		rhit.productManager = new rhit.productManager("9iURJi7NM8DMTstxGlrO");
+		new rhit.ProductPageController();
 		// new rhit.CartpageController();
-		// new rhit.ProductPageController();
+
 	}
 	if (document.querySelector("#profilePage")) {
 		console.log("You are on the profile page.");

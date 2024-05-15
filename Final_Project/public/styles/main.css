@@ -279,12 +279,13 @@ footer {
 #cartItems{
   height: 200px;
   width: 150px;
+  margin: 30px;
 }
 #cartPhoto{
   height: 100px;
   width: 130px;
 }
-#deleteButton{
+.deleteButton{
   width: 130px;
   font-size: 10px;
   font-weight: bold;
@@ -563,6 +564,22 @@ footer {
   }
   #Thankyou_Text{
     font-size: 24px;
+  }
+  #cartItems{
+    height: 200px;
+    width: 150px;
+  }
+  #cartPhoto{
+    height: 100px;
+    width: 130px;
+  }
+  .deleteButton{
+    width: 130px;
+    font-size: 10px;
+    font-weight: bold;
+    margin-right:10px ;
+    text-align: center;
+    background-color: gray;
   }
   
 }
