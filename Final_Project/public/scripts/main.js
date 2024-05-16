@@ -177,7 +177,7 @@ rhit.CartManager = class {
 
 		return convertHtmlToElement(`<div class="pin" id="cartItems">
         <img src="${product.photoUrl}" alt="${product.name}" id="cartPhoto">
-		<button  type="button" class="btn btn-outline-warning text-center deleteButton" > Delete</button>
+		<button  type="button" class="btn btn-outline-warning text-center deleteButton" id="${product.id}" > Delete</button>
         <p class="productName">${product.name}</p>
       </div>`);
 	}
@@ -193,8 +193,10 @@ rhit.CartManager = class {
 		for (let i = 0; i < deleteButtons.length; i++) {
 			deleteButtons[i].addEventListener("click", () => {
 				console.log(deleteButtons.length);
-				let product = rhit.productBucketManager.getProductByIndex(i);
-				rhit.productManager.deleteProduct(product.id).then(() => {
+				// let product = rhit.productBucketManager.getProductByIndex(i);
+				console.log(deleteButtons[i].id);
+				let productId = deleteButtons[i].id;
+				rhit.productManager.deleteProduct(productId).then(() => {
 					console.log("Photo successfully deleted");
 					// window.location.href = "/mainpage.html";
 				}).catch(error => {
