@@ -54,6 +54,7 @@ footer {
   bottom: 0;
   left: 0;
   width: 100%;
+  z-index: 10000;
 }
 
 .Ws_Sports_Logo img{
@@ -83,23 +84,31 @@ footer {
 #columns {
   column-count: 3;
   column-gap: 5px;
+  display: flex;
+  max-width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 @media (min-width: 992px) {
   #columns {
-      column-count: 4;
-      column-gap: 10px;
+      column-count: 3;
+      column-gap: 5px;
+      display: flex;
+      max-width: 100%;
+      flex-wrap: wrap;
+      justify-content: center;
   }
 }
 
 .pin {
   display: inline-block;
   box-shadow: 0 1px 2px rgba(34, 25, 25, 0.4);
-  margin: 0 2px 15px;
   padding: 10px;
   padding-bottom: 5px;
   background: linear-gradient(45deg, #FFF, #EEE);
   transition: all .2s ease;
+  justify-content: center;
 }
 
 .pin img {
@@ -141,7 +150,7 @@ footer {
 }
 
 .bmd-layout-drawer > header {
-  background-color: gray;
+  background-color: #004085;
   color: white;
 }
 
@@ -295,7 +304,7 @@ footer {
   font-weight: bold;
   margin-right:10px ;
   text-align: center;
-  background-color: gray;
+  background-color: #004085;
 }
 
 /* Make the page responsive so it looks good on the phone */
@@ -348,7 +357,7 @@ footer {
   
   footer {
     position: fixed;
-
+    z-index: 10000;
     padding: 10px; /* Less padding to save space */
     font-size: 14px; /* Smaller text if necessary */
   }
@@ -391,6 +400,7 @@ footer {
     padding-bottom: 5px;
     background: linear-gradient(45deg, #FFF, #EEE);
     transition: all .2s ease;
+    justify-content: center ;
   }
   
   .pin img {
@@ -432,7 +442,7 @@ footer {
   }
   
   .bmd-layout-drawer > header {
-    background-color: gray;
+    background-color: #004085;
     color: white;
   }
   
@@ -544,11 +554,11 @@ footer {
     cursor: pointer;
     width: 70%;
     margin-top: 10px;
-    background-color: black; /* Add this line */
+    background-color: #004085; /* Add this line */
   }
   
   .add-to-cart-btn:hover {
-    background-color: gray;
+    background-color: #004085;
   }
   .add-to-cart-btn:active {
     transform: translateY(2px);
@@ -585,7 +595,7 @@ footer {
     font-weight: bold;
     margin-right:10px ;
     text-align: center;
-    background-color: gray;
+    background-color: #004085;
   }
   
 }
