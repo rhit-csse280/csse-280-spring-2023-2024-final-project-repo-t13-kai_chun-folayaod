@@ -32,16 +32,25 @@ body {
   margin: 20px auto;
 }
 
+#signInContainer{
+  background-color: white;
+  box-shadow: 5px 10px #2A56C6;
+  display: block;
+  position: absolute;
+  padding: 20px;
+  left: 0;
+  right:0;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 400px;
+ 
 
-#signInText,
-#loginPage h1{
-  text-align: center;
-  font-size: 2em;
-  margin-bottom: 1em;
-  color: #004085;
 }
+
 #signInContainer h1{
-  font-family: "DM Serif Display", "Rubik";
+  text-align:center;
+font-family: "DM Serif Display", "Rubik";
 }
 
 
@@ -340,7 +349,7 @@ footer {
   }
   #signInContainer{
     background-color: white;
-    box-shadow: 5px 10px black;
+    box-shadow: 5px 10px #004085;
     display: block;
     position: absolute;
     padding: 20px;
@@ -352,6 +361,7 @@ footer {
     width: 250px;
   }
   #signInContainer h1{
+    
     font-family: "DM Serif Display", "Rubik";
   }
   
